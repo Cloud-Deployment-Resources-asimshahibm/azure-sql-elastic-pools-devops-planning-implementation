@@ -108,9 +108,9 @@ BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 152.30000000000004 Tm (workload-specific desig
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 140.20000000000005 Tm (evidence. Do not deploy example values unchanged.) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 126.10000000000005 Tm (Service scope: Azure SQL Database elastic pools, vCore model, one primary) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 114.00000000000006 Tm (region. Azure SQL Managed Instance and SQL Server on VMs are out of scope.) Tj ET
-BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 99.90000000000006 Tm (Deployment entry point: terraform/production) Tj ET
-BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 87.80000000000007 Tm (Delivery pipeline: azure-pipelines.yml) Tj ET
-BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 75.70000000000007 Tm (Architecture: Reference architecture) Tj ET
+BT 0 0 0 rg /F1 9 Tf 1 0 0 1 60 99.90000000000006 Tm (- Deployment entry point: terraform/production) Tj ET
+BT 0 0 0 rg /F1 9 Tf 1 0 0 1 60 88.90000000000006 Tm (- Delivery pipeline: azure-pipelines.yml) Tj ET
+BT 0 0 0 rg /F1 9 Tf 1 0 0 1 60 77.90000000000006 Tm (- Architecture: Reference architecture) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (2) Tj ET
 endstream
