@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, "..");
-const sourcePath = path.join(rootDir, "docs", "azure-sql-elastic-pool-operations-runbook.md");
+const sourcePath = path.join(rootDir, "docs", "production-deployment-runbook.md");
 const outputPath = path.join(rootDir, "docs", "Azure-SQL-Elastic-Pool-Operations-Runbook.pdf");
 const pageWidth = 612;
 const pageHeight = 792;
@@ -89,7 +89,7 @@ function paragraph(text, options = {}) {
 function drawArchitecture() {
   page = [];
   y = pageHeight - 74;
-  writeLine("REFERENCE ARCHITECTURE", { font: "F2", size: 17, gapAfter: 14, color: "0.07 0.22 0.39" });
+  writeLine("PRODUCTION REFERENCE ARCHITECTURE", { font: "F2", size: 17, gapAfter: 14, color: "0.07 0.22 0.39" });
   const box = (x, top, width, height, lines, fill = "0.91 0.95 0.98") => {
     page.push(`${fill} rg ${x} ${top - height} ${width} ${height} re f`);
     page.push("0.25 0.39 0.52 RG 0.8 w");
@@ -104,14 +104,14 @@ function drawArchitecture() {
     page.push(`0.25 0.39 0.52 RG 1.2 w ${x1} ${y1} m ${x2} ${y2} l S`);
     page.push(`${x2} ${y2} m ${x2 - 5} ${y2 + 3} l ${x2 - 5} ${y2 - 3} l h f`);
   };
-  box(58, 646, 148, 72, ["APPLICATIONS", "Services / tenants", "Private network"]);
-  box(238, 646, 164, 72, ["AZURE SQL DATABASE", "Logical servers", "10+ elastic pools"]);
-  box(434, 646, 122, 72, ["DATABASES", "100+ pooled DBs", "Per-DB limits"]);
+  box(58, 646, 148, 72, ["APPLICATIONS", "Private subnets", "Private DNS + TLS"]);
+  box(238, 646, 164, 72, ["AZURE SQL DATABASE", "Entra-only auth", "Public access off"]);
+  box(434, 646, 122, 72, ["ELASTIC POOLS", "Workload-aligned", "Pooled databases"]);
   arrow(206, 610, 238, 610);
   arrow(402, 610, 434, 610);
-  box(62, 500, 172, 86, ["AZURE MONITOR", "Pool + database metrics", "CPU / IO / workers /", "storage / availability"], "0.91 0.97 0.92");
-  box(246, 500, 164, 86, ["LOG ANALYTICS", "Per-resource diagnostics", "Errors / Query Store /", "timeouts / deadlocks"], "0.91 0.97 0.92");
-  box(424, 500, 132, 86, ["OPERATIONS", "Metric + log alerts", "Action group", "Azure Workbook"], "0.99 0.95 0.87");
+  box(62, 500, 172, 86, ["AZURE MONITOR", "Pool + DB metrics", "CPU / IO / workers", "Storage / availability"], "0.91 0.97 0.92");
+  box(246, 500, 164, 86, ["LOG ANALYTICS", "Server + pool + DB logs", "SQL auditing", "Approved retention"], "0.91 0.97 0.92");
+  box(424, 500, 132, 86, ["DELIVERY + OPS", "Azure DevOps OIDC", "Private TF state", "Approved apply"], "0.99 0.95 0.87");
   arrow(320, 574, 148, 500);
   arrow(320, 574, 328, 500);
   page.push("0.25 0.39 0.52 RG 1.1 w 234 478 m 234 520 l 490 520 l 490 500 l S");
@@ -121,8 +121,8 @@ function drawArchitecture() {
   arrow(496, 500, 426, 410);
   page.push("0.35 0.35 0.35 RG 0.8 w [3 3] 0 d 402 574 m 402 430 l 426 410 l S [] 0 d");
   y = 280;
-  paragraph("Applications connect to workload-aligned Azure SQL pools. Azure Monitor collects platform metrics; diagnostic settings export pool and database telemetry to Log Analytics. Alert rules route actionable signals to the on-call team, and a Workbook provides fleet-to-database drilldown. A separately tested recovery region supports the approved continuity plan.", { maxChars: 98, size: 9.2, gapAfter: 5 });
-  paragraph("Diagram is a reference layout, not a deployed environment. Confirm network topology, regional redundancy, product support, SKU, cost, and RPO/RTO with the service owners.", { font: "F2", size: 8.4, maxChars: 105, gapAfter: 4, color: "0.25 0.25 0.25" });
+  paragraph("Applications reach the Entra-only SQL server over Private Link and private DNS. Terraform is delivered by Azure DevOps workload identity; its private Blob state backend uses lease locking. Azure Monitor metrics, server auditing, and resource diagnostics feed Log Analytics and staffed alerts. A separately tested recovery region supports the approved continuity plan.", { maxChars: 98, size: 9.2, gapAfter: 5 });
+  paragraph("Reference only, not a deployed environment. Confirm topology, regional redundancy, product support, SKU, cost, and RPO/RTO with service owners.", { font: "F2", size: 8.4, maxChars: 105, gapAfter: 4, color: "0.25 0.25 0.25" });
 }
 
 function renderMarkdown(markdown) {
@@ -214,13 +214,13 @@ const markdown = fs.readFileSync(sourcePath, "utf8");
 pages.push([
   "0.07 0.22 0.39 rg 0 0 612 792 re f",
   "BT 1 1 1 rg /F2 26 Tf 1 0 0 1 64 625 Tm (Azure SQL Elastic Pool) Tj ET",
-  "BT 1 1 1 rg /F2 26 Tf 1 0 0 1 64 590 Tm (Operations Runbook) Tj ET",
-  "BT 0.83 0.91 0.97 rg /F1 13 Tf 1 0 0 1 66 540 Tm (Architecture, provisioning, observability, alerting,) Tj ET",
-  "BT 0.83 0.91 0.97 rg /F1 13 Tf 1 0 0 1 66 519 Tm (daily support, and regional recovery) Tj ET",
+  "BT 1 1 1 rg /F2 26 Tf 1 0 0 1 64 590 Tm (Production Deployment Runbook) Tj ET",
+  "BT 0.83 0.91 0.97 rg /F1 13 Tf 1 0 0 1 66 540 Tm (Terraform, Azure DevOps, private networking,) Tj ET",
+  "BT 0.83 0.91 0.97 rg /F1 13 Tf 1 0 0 1 66 519 Tm (monitoring, operations, and recovery) Tj ET",
   "0.22 0.48 0.67 rg 64 460 484 2 re f",
   "BT 1 1 1 rg /F2 12 Tf 1 0 0 1 66 425 Tm (Reference scale: 10+ elastic pools / 100+ databases) Tj ET",
   "BT 0.83 0.91 0.97 rg /F1 10 Tf 1 0 0 1 66 390 Tm (Azure SQL Database - operational reference; validate values for your environment.) Tj ET",
-  "BT 0.83 0.91 0.97 rg /F1 9 Tf 1 0 0 1 66 62 Tm (Project: azure-sql-elastic-pool-operations-runbook) Tj ET"
+  "BT 0.83 0.91 0.97 rg /F1 9 Tf 1 0 0 1 66 62 Tm (Project: azure-sql-elastic-pool-production-runbook) Tj ET"
 ]);
 drawArchitecture();
 renderMarkdown(markdown);

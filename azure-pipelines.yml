@@ -1,0 +1,134 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pr:
+  branches:
+    include:
+      - main
+
+variables:
+  - group: sql-elastic-pool-prod
+  - name: terraformVersion
+    value: 1.15.8
+  - name: TF_ROOT
+    value: terraform/production
+
+stages:
+  - stage: Validate
+    displayName: Validate code and documentation
+    jobs:
+      - job: Validate
+        displayName: Offline validation (no Azure credentials)
+        pool:
+          vmImage: ubuntu-22.04
+        steps:
+          - checkout: self
+          - task: TerraformInstaller@1
+            displayName: Install pinned Terraform
+            inputs:
+              terraformVersion: $(terraformVersion)
+          - bash: |
+              set -euo pipefail
+              terraform -chdir="$(TF_ROOT)" fmt -check -recursive
+              terraform -chdir="$(TF_ROOT)" init -backend=false -input=false
+              terraform -chdir="$(TF_ROOT)" validate
+              node --version
+              node scripts/build-pdf.mjs
+              git diff --exit-code -- docs/Azure-SQL-Elastic-Pool-Operations-Runbook.pdf
+            displayName: Format, validate Terraform, and verify PDF
+
+  - stage: Plan
+    displayName: Create reviewed production plan
+    dependsOn: Validate
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - job: Plan
+        displayName: Plan with federated identity
+        pool:
+          name: $(deploymentAgentPool)
+        steps:
+          - checkout: self
+          - task: TerraformInstaller@1
+            displayName: Install pinned Terraform
+            inputs:
+              terraformVersion: $(terraformVersion)
+          - task: AzureCLI@2
+            displayName: Initialize backend and save plan
+            inputs:
+              azureSubscription: $(azureServiceConnection)
+              scriptType: bash
+              scriptLocation: inlineScript
+              addSpnToEnvironment: true
+              inlineScript: |
+                set -euo pipefail
+                export ARM_CLIENT_ID="${servicePrincipalId}"
+                export ARM_TENANT_ID="${tenantId}"
+                export ARM_OIDC_TOKEN="${idToken}"
+                export ARM_SUBSCRIPTION_ID="${AZURE_SUBSCRIPTION_ID}"
+                export ARM_USE_OIDC=true
+                export ARM_USE_AZUREAD=true
+                bash ./scripts/terraform-ado.sh init
+                bash ./scripts/terraform-ado.sh plan
+            env:
+              AZURE_SUBSCRIPTION_ID: $(azureSubscriptionId)
+              AZURE_TENANT_ID: $(tenantId)
+              TFSTATE_RESOURCE_GROUP: $(tfstateResourceGroup)
+              TFSTATE_STORAGE_ACCOUNT: $(tfstateStorageAccount)
+              TFSTATE_CONTAINER: $(tfstateContainer)
+              TFSTATE_KEY: $(tfstateKey)
+              TF_ROOT: $(TF_ROOT)
+              TF_VARS_FILE: $(tfVarsFile)
+              TFPLAN_PATH: $(Build.ArtifactStagingDirectory)/tfplan/tfplan
+          - publish: $(Build.ArtifactStagingDirectory)/tfplan
+            artifact: reviewed-tfplan
+            displayName: Publish restricted plan artifact
+
+  - stage: Apply
+    displayName: Apply approved production plan
+    dependsOn: Plan
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - deployment: ApplyProduction
+        displayName: Apply saved plan to production
+        pool:
+          name: $(deploymentAgentPool)
+        environment: sql-prod
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                - download: current
+                  artifact: reviewed-tfplan
+                - task: TerraformInstaller@1
+                  displayName: Install pinned Terraform
+                  inputs:
+                    terraformVersion: $(terraformVersion)
+                - task: AzureCLI@2
+                  displayName: Apply exact reviewed plan
+                  inputs:
+                    azureSubscription: $(azureServiceConnection)
+                    scriptType: bash
+                    scriptLocation: inlineScript
+                    addSpnToEnvironment: true
+                    inlineScript: |
+                      set -euo pipefail
+                      export ARM_CLIENT_ID="${servicePrincipalId}"
+                      export ARM_TENANT_ID="${tenantId}"
+                      export ARM_OIDC_TOKEN="${idToken}"
+                      export ARM_SUBSCRIPTION_ID="${AZURE_SUBSCRIPTION_ID}"
+                      export ARM_USE_OIDC=true
+                      export ARM_USE_AZUREAD=true
+                      bash ./scripts/terraform-ado.sh init
+                      bash ./scripts/terraform-ado.sh apply
+                  env:
+                    AZURE_SUBSCRIPTION_ID: $(azureSubscriptionId)
+                    AZURE_TENANT_ID: $(tenantId)
+                    TFSTATE_RESOURCE_GROUP: $(tfstateResourceGroup)
+                    TFSTATE_STORAGE_ACCOUNT: $(tfstateStorageAccount)
+                    TFSTATE_CONTAINER: $(tfstateContainer)
+                    TFSTATE_KEY: $(tfstateKey)
+                    TF_ROOT: $(TF_ROOT)
+                    TFPLAN_PATH: $(Pipeline.Workspace)/reviewed-tfplan/tfplan

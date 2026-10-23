@@ -1,0 +1,45 @@
+# Copy to environments/prod.tfvars and replace every example with approved,
+# non-secret values. Pool sizing and thresholds are illustrative only.
+resource_group_name        = "rg-sql-prod"
+location                   = "eastus"
+sql_server_name            = "sqlprodname12345"
+sql_entra_admin_login      = "sql-platform-admins"
+sql_entra_admin_object_id  = "00000000-0000-0000-0000-000000000000"
+private_endpoint_subnet_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-prod/subnets/snet-private-endpoints"
+private_dns_zone_id        = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-dns/providers/Microsoft.Network/privateDnsZones/privatelink.database.windows.net"
+workspace_name             = "law-sql-prod-12345"
+workspace_retention_in_days = 90
+operator_email             = "dba-oncall@example.com"
+pool_cpu_alert_threshold   = 80
+pool_data_io_alert_threshold = 80
+
+tags = {
+  environment       = "production"
+  serviceOwner      = "replace-with-service-owner"
+  costCenter        = "replace-with-approved-cost-center"
+  dataClassification = "replace-with-approved-classification"
+}
+
+pools = {
+  # Do not copy this sizing into production without measured workload approval.
+  pool-critical = {
+    sku_name       = "GP_Gen5"
+    tier           = "GeneralPurpose"
+    family         = "Gen5"
+    license_type   = "LicenseIncluded"
+    capacity       = 4
+    max_size_gb    = 500
+    min_capacity   = 0
+    max_capacity   = 4
+    zone_redundant = false
+  }
+}
+
+databases = {
+  appdb01 = {
+    pool_name                 = "pool-critical"
+    max_size_gb               = 100
+    short_term_retention_days = 35
+    backup_storage_type       = "Geo"
+  }
+}

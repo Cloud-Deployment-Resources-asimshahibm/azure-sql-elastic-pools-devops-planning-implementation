@@ -1,1 +1,12 @@
 .idea/
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+!terraform.tfvars.example
+!*.tfvars.example
+!terraform/production/environments/prod.tfvars
+crash.log
+override.tf
+override.tf.json

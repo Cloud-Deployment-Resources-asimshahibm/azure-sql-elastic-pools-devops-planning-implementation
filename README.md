@@ -1,100 +1,77 @@
-# Azure SQL Elastic Pool Operations
+# Azure SQL Elastic Pool Production Deployment
 
-Architecture, provisioning guidance, monitoring, alerting, and day-to-day
-support for an Azure SQL Database estate with 10+ elastic pools and 100+
-databases.
+A production-oriented design and deployment kit for Azure SQL Database elastic
+pools. It includes a detailed prerequisite and recovery checklist, a reference
+architecture, Terraform for the SQL and monitoring baseline, an approval-gated
+Azure DevOps pipeline, and a printable deployment runbook.
 
-**Runbook PDF:** [Download the PDF](docs/Azure-SQL-Elastic-Pool-Operations-Runbook.pdf)  
-**Full runbook:** [Read the Markdown runbook](docs/azure-sql-elastic-pool-operations-runbook.md)  
-**Architecture:** [Open the architecture diagram and component guide](docs/architecture.md)
+- **Start here:** [Production deployment runbook](docs/production-deployment-runbook.md)
+- **Printable guide:** [Download the PDF](docs/Azure-SQL-Elastic-Pool-Operations-Runbook.pdf)
+- **Architecture:** [Reference design and trust boundaries](docs/architecture.md)
+- **Terraform:** [`terraform/production`](terraform/production/README.md)
+- **Azure DevOps:** [`azure-pipelines.yml`](azure-pipelines.yml)
 
-## Repository layout
+## What this deploys
 
-```text
-.
-├── README.md
-├── docs/
-│   ├── Azure-SQL-Elastic-Pool-Operations-Runbook.pdf
-│   ├── architecture.md
-│   └── azure-sql-elastic-pool-operations-runbook.md
-├── infra/
-│   └── monitoring/
-│       └── main.bicep
-└── scripts/
-    └── build-pdf.mjs
-```
+The Terraform root module provisions an Azure SQL logical server configured for
+Microsoft Entra-only authentication and disabled public network access;
+configurable vCore elastic pools and pooled databases; a Private Endpoint to an
+existing VNet subnet and Private DNS zone; Log Analytics; diagnostic settings
+for the server, master database, pools, and databases; server auditing to
+Log Analytics; an email action group; and per-pool CPU and data-I/O metric
+alerts.
+
+The VNet, Private Endpoint subnet, Private DNS zones and VNet links,
+state-storage account, identity, role assignments, Azure DevOps project,
+approvals, and production decisions remain explicit prerequisites. Keeping
+these shared controls outside the application stack avoids silently changing
+network or identity foundations during a database deployment.
 
 ## Quick start
 
-1. Read the [runbook](docs/azure-sql-elastic-pool-operations-runbook.md) and
-   agree on workload ownership, service objectives, recovery objectives, and
-   alert responders before changing production.
-2. Deploy the monitoring baseline in `infra/monitoring/main.bicep` to a
-   dedicated monitoring resource group. Supply an approved on-call email.
-3. Inventory and classify the SQL logical servers, elastic pools, and
-   databases. Configure diagnostic settings on **both** pool and database
-   resources.
-4. Create metric alerts, the Azure Monitor Workbook, and action group routing
-   using the runbook. Tune thresholds against workload baselines.
-5. Apply infrastructure changes through reviewed IaC and change control; test
-   restore and regional recovery before relying on them.
+1. Read the full [prerequisite checklist and resolution guide](docs/production-deployment-runbook.md#1-prerequisite-readiness-gates).
+2. Complete the architecture, sizing, identity, network, security, backup,
+   recovery, and cost decisions with the named service owners.
+3. Bootstrap the remote Terraform state account and configure the workload
+   identity, RBAC, private networking, and Azure DevOps environment approvals.
+4. Copy `terraform/production/terraform.tfvars.example` to a protected
+   environment-specific `.tfvars` file; replace every example value and review
+   it. Never put passwords, tokens, or other secrets in Terraform variables.
+5. Run the local validation and plan steps in the
+   [deployment runbook](docs/production-deployment-runbook.md#5-validate-and-plan).
+6. Configure the pipeline variable group and service connection, then run the
+   Azure DevOps pipeline. Production `apply` is gated by the `sql-prod`
+   environment approval and applies the exact reviewed plan artifact.
+7. Complete all post-deployment acceptance, restore, monitoring, and handover
+   checks before onboarding production databases.
 
-The included Bicep file creates only a Log Analytics workspace and an email
-action group. It does not create SQL servers, pools, databases, private
-endpoints, diagnostic settings, alert rules, or a workbook. Those require
-environment-specific decisions and are covered in the runbook.
+## Important production boundary
 
-All names, regions, capacities, thresholds, retention periods, and sample
-resource groups in this project are examples or starting points. Confirm
-regional SKU availability, quotas, compliance requirements, workload baselines,
-and the current Azure price before production deployment.
+This is a reviewed starting implementation, not a claim that any default pool
+size, alert threshold, region, retention period, SKU, or network layout is
+right for a particular workload. No workload has been deployed or capacity
+tested by publishing this repository. Obtain the required workload, compliance,
+quota, cost, RPO/RTO, and change-control approvals; substitute the approved
+values; test in a nonproduction environment; inspect the saved plan; and
+complete the documented restore and failover exercises before production use.
 
-## Build the monitoring baseline
+The source repository's Bicep sample is retained for reference. Terraform is
+the primary implementation for this deployment kit; do not deploy both
+templates to manage the same resources.
 
-Install Azure CLI and Bicep, authenticate with an approved identity, and create
-the resource group. Then deploy:
+## Local checks and PDF
 
-```bash
-az login
-az account set --subscription "<subscription-id>"
-az group create --name "rg-sql-monitoring-prod" --location "eastus"
+Requirements: Terraform CLI matching the version pinned in `azure-pipelines.yml`,
+Node.js 18+, and Git. Azure CLI is needed for authenticated planning and the
+state bootstrap procedure; the format/validate checks do not require Azure
+credentials.
 
-az deployment group create \
-  --resource-group "rg-sql-monitoring-prod" \
-  --template-file "infra/monitoring/main.bicep" \
-  --parameters location="eastus" \
-               workspaceName="law-sql-prod" \
-               actionGroupName="ag-sql-oncall-prod" \
-               operatorEmail="dba-oncall@example.com"
-```
-
-Replace the sample subscription, region, names, and email. Continue with the
-configuration and validation steps in the runbook.
-
-## Build the PDF locally
-
-Node.js 18 or later is required. No npm dependencies are used:
-
-```bash
+```powershell
+terraform -chdir=terraform/production fmt -check -recursive
+terraform -chdir=terraform/production init -backend=false
+terraform -chdir=terraform/production validate
 node scripts/build-pdf.mjs
 ```
 
-The script renders the Markdown runbook and a vector architecture diagram to
-`docs/Azure-SQL-Elastic-Pool-Operations-Runbook.pdf`.
-
-## Scope and safety
-
-This is an operational reference, not a workload-specific capacity guarantee.
-Do not blindly apply example alert thresholds or pool sizes. Validate every
-scale, database move, firewall/network change, restore, and failover against
-the application owner, maintenance window, cost approval, and recovery plan.
-
-## Microsoft references
-
-- [Azure SQL elastic pools overview](https://learn.microsoft.com/azure/azure-sql/database/elastic-pool-overview)
-- [Manage elastic pools](https://learn.microsoft.com/azure/azure-sql/database/elastic-pool-manage)
-- [Monitor Azure SQL with metrics and alerts](https://learn.microsoft.com/azure/azure-sql/database/monitoring-metrics-alerts)
-- [Elastic pool metric reference](https://learn.microsoft.com/azure/azure-monitor/reference/supported-metrics/microsoft-sql-servers-elasticpools-metrics)
-- [Export Azure SQL metrics and diagnostic telemetry](https://learn.microsoft.com/azure/azure-sql/database/metrics-diagnostic-telemetry-logging-streaming-export-configure)
-- [Azure Workbooks overview](https://learn.microsoft.com/azure/azure-monitor/visualize/workbooks-overview)
-- [Azure SQL Database failover groups](https://learn.microsoft.com/azure/azure-sql/database/failover-group-sql-db)
+The generated PDF is checked into `docs/` and rebuilt by CI. Its source is
+`docs/production-deployment-runbook.md`.

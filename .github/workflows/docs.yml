@@ -22,13 +22,27 @@ jobs:
         with:
           node-version: 22
 
-      - name: Rebuild runbook PDF
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.15.8
+
+      - name: Format and validate Terraform
+        run: |
+          terraform -chdir=terraform/production fmt -check -recursive
+          terraform -chdir=terraform/production init -backend=false -input=false
+          terraform -chdir=terraform/production validate
+
+      - name: Check deployment helper syntax
+        run: bash -n scripts/terraform-ado.sh
+
+      - name: Rebuild production runbook PDF
         run: node scripts/build-pdf.mjs
 
       - name: Confirm committed PDF is current
         run: git diff --exit-code -- docs/Azure-SQL-Elastic-Pool-Operations-Runbook.pdf
 
-      - name: Build Bicep monitoring baseline
+      - name: Validate retained Bicep reference
         uses: azure/cli@v2
         with:
           inlineScript: az bicep build --file infra/monitoring/main.bicep --stdout > /dev/null
