@@ -1,0 +1,49 @@
+flowchart LR
+  subgraph app["Application and engineering"]
+    appsvc["Application services"]
+    cicd["GitHub Actions / approved CI"]
+    iac["Bicep or Terraform"]
+    oncall["DBA / SRE / app on-call"]
+  end
+
+  subgraph primary["Azure subscription - primary region"]
+    subgraph network["Hub / spoke network"]
+      vnet["Workload VNet"]
+      pe["Private Endpoint"]
+      dns["Private DNS"]
+      appsvc --> vnet --> pe
+      dns -. name resolution .-> pe
+    end
+    subgraph sql["Azure SQL Database"]
+      server1["Logical server A"]
+      server2["Logical server B"]
+      pools["10+ workload-aligned elastic pools"]
+      databases["100+ pooled databases\nper-database min/max"]
+      server1 --> pools
+      server2 --> pools
+      pools --> databases
+      pe --> server1
+      pe --> server2
+    end
+    monitor["Azure Monitor metrics"]
+    diagnostics["Diagnostic settings\npool + each database"]
+    law["Log Analytics workspace"]
+    alerts["Metric and log alerts"]
+    action["Action group"]
+    workbook["Azure Monitor Workbook"]
+    sql --> monitor --> alerts
+    sql --> diagnostics --> law
+    law --> alerts
+    law --> workbook
+    alerts --> action --> oncall
+  end
+
+  subgraph dr["Paired recovery region"]
+    secondary["Secondary logical server"]
+    pools2["Corresponding pools"]
+    dbs2["Geo-replicated databases"]
+    secondary --> pools2 --> dbs2
+  end
+  sql == "Failover group / geo-replication; validate RPO/RTO" ==> dr
+  cicd --> iac --> sql
+  oncall --> workbook

@@ -1,0 +1,34 @@
+name: Validate runbook and monitoring baseline
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Rebuild runbook PDF
+        run: node scripts/build-pdf.mjs
+
+      - name: Confirm committed PDF is current
+        run: git diff --exit-code -- docs/Azure-SQL-Elastic-Pool-Operations-Runbook.pdf
+
+      - name: Build Bicep monitoring baseline
+        uses: azure/cli@v2
+        with:
+          inlineScript: az bicep build --file infra/monitoring/main.bicep --stdout > /dev/null
