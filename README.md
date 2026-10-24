@@ -1,7 +1,7 @@
 # Azure SQL Elastic Pools (DevOps Planning & Implementation)
 
-A cost-free production planning and deployment repository for Azure SQL
-Database elastic pools. It contains a gated implementation plan, environment
+The production planning and deployment repository for Azure SQL
+Database elastic pools contains a gated implementation plan, environment
 input workbook, architecture and lifecycle diagrams, prerequisite/remediation
 guides, an infrastructure-as-code template, and an approval-gated Azure DevOps
 pipeline. No Azure resources are created by preparing or validating this repo.
