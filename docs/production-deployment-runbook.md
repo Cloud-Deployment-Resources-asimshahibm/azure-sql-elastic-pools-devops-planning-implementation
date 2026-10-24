@@ -1,8 +1,9 @@
 # Azure SQL elastic pool production deployment runbook
 
-**Status:** Production-oriented implementation template. Not a substitute for
-workload-specific design review, change approval, capacity testing, or recovery
-evidence. Do not deploy example values unchanged.
+**Status:** Planning and deployment template only. No subscription, tenant,
+workload, network or approval values are associated with this repository. It is
+not deployed or certified production infrastructure. Do not deploy example or
+`TBD` values.
 
 **Service scope:** Azure SQL Database elastic pools, vCore model, one primary
 region. Azure SQL Managed Instance and SQL Server on VMs are out of scope.
@@ -10,6 +11,8 @@ region. Azure SQL Managed Instance and SQL Server on VMs are out of scope.
 - **Deployment entry point:** `terraform/production`
 - **Delivery pipeline:** `azure-pipelines.yml`
 - **Architecture:** [Reference architecture](architecture.md)
+- **Readiness stages:** [Production readiness plan](production-readiness-plan.md)
+- **Environment decisions:** [Environment inputs worksheet](environment-inputs.md)
 
 ## 1. Prerequisite readiness gates
 
@@ -17,6 +20,12 @@ Do not start a production apply until every item below is verified and the
 responsible owner has recorded the evidence in the change request.
 Microsoft-hosted agents can validate code, but private state access requires
 the configured deployment agent to reach the state account's private endpoint.
+The detailed owner/evidence worksheet is
+[here](environment-inputs.md); the stage gates and no-go conditions are
+[here](production-readiness-plan.md). Repository authoring and local
+credential-free checks do not create Azure resources. An authenticated plan
+or any later apply requires separately approved Azure access and may incur
+costs.
 
 | Gate | Required prerequisite and evidence | Owner |
 | --- | --- | --- |
@@ -375,24 +384,28 @@ Start from the inventory and measurements, not the example values. Set:
 - `workspace_retention_in_days`, action group email, and measured alert
   thresholds for pool CPU and data I/O.
 
-The values in `terraform.tfvars.example` are illustrative only. Confirm that
-each SKU/family and feature is available in the selected region and supported
-for every database. Validate aggregate pool capacity, per-database limits,
-storage and workload concurrency. `BasePrice` requires approved Azure Hybrid
-Benefit eligibility; zone-redundant vCore pools require a supported
-BusinessCritical SKU/region. Get written approval for exceptions.
+The values in `terraform.tfvars.example` are illustrative only; the
+environment-specific `environments/prod.tfvars.example` is a non-deployable
+`TBD` worksheet. Confirm that each SKU/family and feature is available in the
+selected region and supported for every database. Validate aggregate pool
+capacity, per-database limits, storage and workload concurrency. `BasePrice`
+requires approved Azure Hybrid Benefit eligibility; zone-redundant vCore pools
+require a supported BusinessCritical SKU/region. Get written approval for
+exceptions.
 
 ### 5.2 Create the production variable file
 
 Create the environment directory and copy the example:
 
 ```powershell
-New-Item -ItemType Directory -Force terraform/production/environments
-Copy-Item terraform/production/terraform.tfvars.example `
+Copy-Item terraform/production/environments/prod.tfvars.example `
   terraform/production/environments/prod.tfvars
 ```
 
-Replace all example values with reviewed, non-secret production configuration.
+The tracked file contains `TBD` and intentionally invalid pool/tag values.
+Replace all of them with reviewed, non-secret production configuration only
+after the readiness gates and worksheet are approved. Do not create a valid
+production configuration by guessing.
 Do not add passwords, keys, tokens, private certificates, or credentials;
 Entra-only authentication eliminates the need for a SQL admin password.
 Terraform configuration values can expose infrastructure identifiers. Review
@@ -400,12 +413,13 @@ repository access and secret-scanning rules before committing the environment
 file. The production pipeline intentionally fails until the approved file
 exists.
 
-From a network with approved Terraform Registry access, initialize the provider
-and review/commit `terraform/production/.terraform.lock.hcl`. Ensure it
-contains checksums for the deployment agent's Linux platform (and Windows if
-used locally). The provider version is pinned in `versions.tf`; the lock file
-records verified package checksums. Do not remove it to work around a provider
-error.
+The repository includes `terraform/production/.terraform.lock.hcl` with
+verified checksums for the Linux pipeline agent and Windows local validation.
+From an approved network, initialize Terraform using the lock file and verify
+it does not change. For an approved provider upgrade, review release notes,
+regenerate checksums for every deployment platform in a controlled change,
+validate in nonproduction, and commit the reviewed lock-file update. Do not
+remove the lock file to work around a provider error.
 
 ## 6. Validate and plan
 

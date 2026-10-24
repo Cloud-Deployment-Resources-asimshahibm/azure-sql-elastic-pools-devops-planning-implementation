@@ -13,18 +13,21 @@ before running an authenticated plan.
 
 ## Configuration
 
-1. Copy `terraform.tfvars.example` to `environments/prod.tfvars` after creating
-   that directory, then replace every sample with reviewed environment values.
-   Do not put secrets in the file.
+1. Start from `environments/prod.tfvars.example` and create
+   `environments/prod.tfvars` only in an approved protected configuration
+   location. Replace every `TBD` with approved environment values; the tracked
+   template is deliberately invalid for planning/apply. Do not put secrets in
+   the file.
 2. Set backend values and identity authentication through the Azure DevOps
    variable group and OIDC service connection; do not put backend credentials
    in Terraform files.
 3. Verify SKU, region, capacity, alert, retention, tag, and cost decisions with
    the responsible owners. Sample values are not sizing advice.
-4. Initialize from an approved network, review and commit the generated
-   `.terraform.lock.hcl` with Linux (and Windows, if used) checksums. The
-   provider version is pinned in `versions.tf`; the lock file records verified
-   package checksums.
+   Record evidence in the [environment worksheet](../../docs/environment-inputs.md)
+   and complete the [production readiness plan](../../docs/production-readiness-plan.md).
+4. Use the committed `.terraform.lock.hcl`, which records provider checksums
+   for Linux and Windows. For an approved provider upgrade, regenerate and
+   review checksums for each deployment platform; do not discard the lock file.
 
 ## Credential-free validation
 
@@ -41,6 +44,9 @@ saved plan, and applies that exact artifact only after the protected
 
 Initialization needs approved network access to the Terraform Registry or
 organization provider mirror, even though the checks do not need Azure access.
+`terraform plan` with credentials is outside the cost-free repository checks:
+it contacts Azure, requires an approved subscription and identity, and must not
+be run before the production plan gate.
 
 Terraform state and saved plan files can expose infrastructure details. Keep
 both private, restrict access, and follow the organization's retention policy.

@@ -1,0 +1,29 @@
+# PLANNING TEMPLATE ONLY: intentionally incomplete and rejected by the module.
+# Copy to environments/prod.tfvars in an approved protected configuration
+# location only after filling the environment worksheet and obtaining approval.
+# Never commit the completed production tfvars or put credentials in it.
+
+resource_group_name        = "TBD"
+location                   = "TBD"
+sql_server_name            = "TBD"
+sql_entra_admin_login      = "TBD"
+sql_entra_admin_object_id  = "TBD"
+private_endpoint_subnet_id = "TBD"
+private_dns_zone_id        = "TBD"
+workspace_name             = "TBD"
+
+# Do not rely on module defaults as production decisions.
+workspace_retention_in_days  = 0
+operator_email               = "TBD"
+pool_cpu_alert_threshold     = 0
+pool_data_io_alert_threshold = 0
+
+pools     = {}
+databases = {}
+
+tags = {
+  environment        = ""
+  serviceOwner       = ""
+  costCenter         = ""
+  dataClassification = ""
+}

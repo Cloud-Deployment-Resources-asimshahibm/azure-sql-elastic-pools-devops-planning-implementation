@@ -1,0 +1,35 @@
+flowchart LR
+  subgraph primary["Primary region"]
+    app["Applications"]
+    listener["Approved connection endpoint<br/>private DNS / listener"]
+    sql["Primary logical server"]
+    pools["Primary elastic pools"]
+    db["Production databases"]
+    app --> listener --> sql --> pools --> db
+  end
+
+  subgraph recover["Recovery options - choose and test per service"]
+    pitr["Point-in-time restore<br/>to isolated target"]
+    geo["Geo-replication / failover group<br/>secondary server and pool capacity"]
+    secondary["Recovery region<br/>approved network, identity, quota"]
+    secondaryDb["Secondary databases"]
+    secondary --> secondaryDb
+    geo --> secondary
+  end
+
+  subgraph control["Recovery governance"]
+    objectives["Approved RPO / RTO<br/>data-loss acceptance"]
+    commander["Incident commander + DBA<br/>explicit decision authority"]
+    validate["Application, data integrity,<br/>DNS, access and dependency checks"]
+    evidence["Exercise evidence<br/>timings, gaps, owners"]
+  end
+
+  db -->|automated backup retention| pitr
+  db -. "replication behavior and lag must be validated" .-> geo
+  objectives --> commander
+  pitr --> validate
+  secondaryDb --> validate
+  commander -->|authorize restore or failover| pitr
+  commander -->|authorize planned/forced action| geo
+  validate --> evidence
+  evidence --> objectives

@@ -73,6 +73,53 @@ flowchart LR
   agent -. Azure Resource Manager .-> workload
 ```
 
+The editable source diagrams for the deployment lifecycle and recovery
+topology are in [`../diagrams/`](../diagrams/README.md). These designs are
+references only; validate the actual landing zone, resource ownership, Azure
+service support, and recovery procedures before implementation.
+
+### Delivery lifecycle
+
+```mermaid
+flowchart TD
+  scope["Scope and ownership"] --> measure["Measure workloads"]
+  measure --> design["Approve architecture and recovery"]
+  design --> cost["Cost, quota and capacity review"]
+  cost --> ready{"Security, network, identity and<br/>platform prerequisites complete?"}
+  ready -- "No" --> stop["Stop and remediate"]
+  ready -- "Yes" --> nonprod["Nonproduction deployment and tests"]
+  nonprod --> tested{"Load, app, monitoring and<br/>restore tests pass?"}
+  tested -- "No" --> stop
+  tested -- "Yes" --> plan["Fresh production plan"]
+  plan --> inspect{"Exact target and actions reviewed?"}
+  inspect -- "No" --> stop
+  inspect -- "Yes" --> approve["Protected production approval"]
+  approve --> apply["Apply exact saved plan"]
+  apply --> handover["Acceptance and operations handover"]
+```
+
+### Recovery topology
+
+```mermaid
+flowchart LR
+  primary["Primary SQL server<br/>pools and databases"]
+  restore["Point-in-time restore<br/>to isolated target"]
+  secondary["Approved recovery region<br/>server, pools and quota"]
+  replica["Geo-replication or<br/>failover group"]
+  objectives["Approved RPO / RTO<br/>and data-loss acceptance"]
+  authority["Incident commander + DBA<br/>explicit recovery authority"]
+  evidence["Test evidence<br/>integrity + measured timings"]
+  primary -->|backup retention| restore
+  primary -. "replication behavior must be validated" .-> replica
+  replica --> secondary
+  objectives --> authority
+  authority --> restore
+  authority --> replica
+  restore --> evidence
+  secondary --> evidence
+  evidence --> objectives
+```
+
 ## Trust boundaries and network paths
 
 | Path | Required design |

@@ -4,7 +4,11 @@ import { fileURLToPath } from "node:url";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, "..");
-const sourcePath = path.join(rootDir, "docs", "production-deployment-runbook.md");
+const sourcePaths = [
+  "docs/production-readiness-plan.md",
+  "docs/environment-inputs.md",
+  "docs/production-deployment-runbook.md"
+].map(filePath => path.join(rootDir, filePath));
 const outputPath = path.join(rootDir, "docs", "Azure-SQL-Elastic-Pool-Operations-Runbook.pdf");
 const pageWidth = 612;
 const pageHeight = 792;
@@ -210,16 +214,18 @@ function pdfObject(content) {
   return `<< ${content} >>`;
 }
 
-const markdown = fs.readFileSync(sourcePath, "utf8");
+const markdown = sourcePaths
+  .map(sourcePath => fs.readFileSync(sourcePath, "utf8"))
+  .join("\n\n---\n\n");
 pages.push([
   "0.07 0.22 0.39 rg 0 0 612 792 re f",
   "BT 1 1 1 rg /F2 26 Tf 1 0 0 1 64 625 Tm (Azure SQL Elastic Pool) Tj ET",
-  "BT 1 1 1 rg /F2 26 Tf 1 0 0 1 64 590 Tm (Production Deployment Runbook) Tj ET",
-  "BT 0.83 0.91 0.97 rg /F1 13 Tf 1 0 0 1 66 540 Tm (Terraform, Azure DevOps, private networking,) Tj ET",
-  "BT 0.83 0.91 0.97 rg /F1 13 Tf 1 0 0 1 66 519 Tm (monitoring, operations, and recovery) Tj ET",
+  "BT 1 1 1 rg /F2 26 Tf 1 0 0 1 64 590 Tm (Production Planning + Deployment) Tj ET",
+  "BT 0.83 0.91 0.97 rg /F1 13 Tf 1 0 0 1 66 540 Tm (Readiness plan, environment worksheet, Terraform,) Tj ET",
+  "BT 0.83 0.91 0.97 rg /F1 13 Tf 1 0 0 1 66 519 Tm (Azure DevOps, operations, and recovery) Tj ET",
   "0.22 0.48 0.67 rg 64 460 484 2 re f",
   "BT 1 1 1 rg /F2 12 Tf 1 0 0 1 66 425 Tm (Reference scale: 10+ elastic pools / 100+ databases) Tj ET",
-  "BT 0.83 0.91 0.97 rg /F1 10 Tf 1 0 0 1 66 390 Tm (Azure SQL Database - operational reference; validate values for your environment.) Tj ET",
+  "BT 0.83 0.91 0.97 rg /F1 10 Tf 1 0 0 1 66 390 Tm (Planning template only - no Azure subscription or deployment included.) Tj ET",
   "BT 0.83 0.91 0.97 rg /F1 9 Tf 1 0 0 1 66 62 Tm (Project: azure-sql-elastic-pool-production-runbook) Tj ET"
 ]);
 drawArchitecture();

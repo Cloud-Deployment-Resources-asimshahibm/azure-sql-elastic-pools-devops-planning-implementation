@@ -1,0 +1,75 @@
+flowchart LR
+  subgraph repo["Source and governance"]
+    pr["Pull request<br/>review + checks"]
+    main["Protected main<br/>approved IaC"]
+    ado["Azure DevOps<br/>plan / apply pipeline"]
+    approver["Protected sql-prod<br/>named approvers"]
+    pr --> main --> ado
+    ado --> approver
+  end
+
+  subgraph identity["Identity boundary"]
+    oidc["OIDC workload identity<br/>no stored client secret"]
+    rbac["Scoped Azure RBAC<br/>and state data role"]
+    oidc --> rbac
+  end
+
+  subgraph agentnet["Private deployment network"]
+    agent["Hardened Linux agent<br/>approved egress"]
+    state["Private Blob state<br/>Entra auth + lease"]
+    blobdns["Private DNS<br/>Blob endpoint"]
+    agent -->|state + lock| state
+    blobdns -.-> state
+  end
+
+  subgraph landing["Approved Azure landing zone"]
+    vnet["Application VNet(s)"]
+    peSubnet["Approved PE subnet"]
+    dnsSql["Private DNS zone<br/>privatelink.database.windows.net"]
+    dnsLink["VNet links / resolver"]
+    peSubnet --- vnet
+    dnsSql --- dnsLink --- vnet
+  end
+
+  subgraph primary["Primary region - application resource group"]
+    pe["SQL Private Endpoint"]
+    server["Azure SQL logical server<br/>Entra-only auth<br/>public access disabled"]
+    subgraph pools["Workload-aligned elastic pools"]
+      poolA["Pool A<br/>approved tier / capacity"]
+      poolB["Pool B<br/>approved tier / capacity"]
+      dbs["Pooled databases<br/>bounded per-DB resources"]
+      poolA --> dbs
+      poolB --> dbs
+    end
+    monitor["Azure Monitor<br/>metrics + alerts"]
+    diagnostics["Diagnostics + auditing"]
+    law["Log Analytics<br/>approved retention"]
+    oncall["Staffed on-call<br/>action group"]
+    server --> poolA
+    server --> poolB
+    server --- pe
+    server --> diagnostics --> law
+    poolA --> monitor
+    poolB --> monitor
+    dbs --> diagnostics
+    monitor --> oncall
+  end
+
+  subgraph recovery["Approved recovery region - separately designed"]
+    secondary["Secondary server / pools<br/>quota and capacity approved"]
+    recoveryDbs["Geo-replicated databases<br/>or isolated restore target"]
+    secondary --> recoveryDbs
+  end
+
+  apps["Application services<br/>managed identity + TLS"]
+  ops["DBA / SRE / incident commander"]
+  approver --> oidc --> agent
+  rbac -. scoped deployment .-> primary
+  agent -. ARM deployment .-> primary
+  agent -. private DNS/state .-> state
+  apps -->|private DNS + TLS| pe
+  pe --- peSubnet
+  pe -. zone group .-> dnsSql
+  dnsLink -. private name resolution .-> apps
+  oncall --> ops
+  primary -. "approved replication or tested recovery procedure" .-> recovery

@@ -1,0 +1,30 @@
+flowchart TD
+  start["Start: planning only<br/>no credentials or resource creation"]
+  scope["Scope service + inventory<br/>owners + data classification"]
+  measure["Collect measured workload<br/>peak / growth / seasonality"]
+  design["Approve architecture<br/>region / pool / network / identity"]
+  cost["Estimate full lifecycle cost<br/>quota + budget + DR"]
+  prereq{"All platform, security,<br/>network and recovery evidence ready?"}
+  platform["Prepare landing zone, private DNS,<br/>state backend, identity and RBAC"]
+  repo["Protect branch + pipeline<br/>OIDC + private agent + approvals"]
+  nonprod["Configure nonproduction inputs<br/>review provider lock file"]
+  validate["Credential-free checks<br/>fmt / validate / docs / scripts"]
+  planNp["Authorized nonproduction plan<br/>inspect every action"]
+  applyNp["Approved nonproduction apply"]
+  test["App, load, access, monitoring,<br/>restore and recovery tests"]
+  ready{"All tests and approvals<br/>complete with evidence?"}
+  change["Production change approval<br/>freeze conflicting state changes"]
+  planProd["Fresh production plan<br/>verify tenant, target and diff"]
+  review{"Exact plan reviewed<br/>no unapproved replacement/deletion?"}
+  approval["Protected sql-prod approval<br/>authorized branch and approver"]
+  applyProd["Apply exact saved plan artifact"]
+  accept["Acceptance + operations handover<br/>monitor, cost, backup, on-call"]
+  stop["STOP / remediate / re-review<br/>do not bypass a failed gate"]
+
+  start --> scope --> measure --> design --> cost --> prereq
+  prereq -- "No" --> stop
+  prereq -- "Yes" --> platform --> repo --> nonprod --> validate --> planNp --> applyNp --> test --> ready
+  ready -- "No" --> stop
+  ready -- "Yes" --> change --> planProd --> review
+  review -- "No" --> stop
+  review -- "Yes" --> approval --> applyProd --> accept
