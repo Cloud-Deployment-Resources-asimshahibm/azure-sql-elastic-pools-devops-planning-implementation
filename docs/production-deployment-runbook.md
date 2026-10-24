@@ -13,6 +13,7 @@ region. Azure SQL Managed Instance and SQL Server on VMs are out of scope.
 - **Architecture:** [Reference architecture](architecture.md)
 - **Readiness stages:** [Production readiness plan](production-readiness-plan.md)
 - **Environment decisions:** [Environment inputs worksheet](environment-inputs.md)
+- **Built-in monitoring:** [Observability and monitoring specification](observability-monitoring.md)
 
 ## 1. Prerequisite readiness gates
 
@@ -381,8 +382,9 @@ Start from the inventory and measurements, not the example values. Set:
 - `databases`: database-to-pool assignment, storage limit and
   short-term-retention days, plus approved backup storage redundancy (`Geo`,
   `GeoZone`, `Local`, or `Zone`).
-- `workspace_retention_in_days`, action group email, and measured alert
-  thresholds for pool CPU and data I/O.
+- `workspace_retention_in_days`, action group email, selected diagnostic log
+  categories, and measured thresholds for pool CPU, physical data reads,
+  transaction log writes, workers, sessions and storage.
 
 The values in `terraform.tfvars.example` are illustrative only; the
 environment-specific `environments/prod.tfvars.example` is a non-deployable
@@ -542,11 +544,18 @@ Complete and attach evidence to the change record:
   the application connects on TCP 1433 using its authorized identity. Denied
   connections from an unauthorized network are also verified.
 - [ ] Diagnostic settings are enabled on the logical server, every elastic
-  pool, and every database. Expected resource logs/metrics arrive in the
-  approved workspace within the documented latency.
-- [ ] CPU and data-I/O alerts target every pool with approved thresholds and
-  action group. Confirm delivery through an approved test; record responder
-  acknowledgement and escalation path.
+  pool, every database and `master`. The selected diagnostic categories and
+  destination are correct; fresh logs/metrics arrive in the approved workspace.
+- [ ] All six saturation metric alerts target every pool: CPU, physical data
+  reads (`physical_data_read_percent`), log writes, workers, sessions and
+  storage. Thresholds, severity, window, frequency and action group match the
+  approved observability worksheet.
+- [ ] The built-in Azure Monitor workbook opens for the intended SRE/DBA groups
+  and returns current trend and latest-sample results. A blank or unauthorized
+  panel is investigated rather than accepted.
+- [ ] Alert routing is tested in nonproduction; delivery, acknowledgement and
+  escalation are evidenced. Do not generate a noisy production alert solely
+  for a routing test.
 - [ ] Cost tags, budget alerts, Defender, auditing, retention, access reviews,
   and policy assignments meet the service's security/compliance baseline.
 - [ ] Point-in-time restore is exercised into an isolated target and timed.
@@ -564,11 +573,12 @@ acceptance item is resolved or formally risk-accepted by the accountable owner.
 
 ## 9. Operational monitoring and scaling
 
-Review pool CPU and data I/O along with log-write, workers, sessions, storage,
-latency, errors, and database-level hotspots. Aggregate metrics can conceal a
-single overloaded database. Use Azure SQL Query Store/approved diagnostic
-queries to identify workload regressions without exporting data outside
-approved boundaries.
+Review the built-in [Azure Monitor workbook and six per-pool saturation
+alerts](observability-monitoring.md): CPU, physical data reads, log writes,
+workers, sessions and storage, alongside latency, errors and database-level
+hotspots. Aggregate metrics can conceal a single overloaded database. Use
+Azure SQL Query Store/approved diagnostic queries to identify workload
+regressions without exporting data outside approved boundaries.
 
 For sustained saturation, confirm the affected databases and correlated peak,
 check application/query changes and limits, evaluate pool isolation or

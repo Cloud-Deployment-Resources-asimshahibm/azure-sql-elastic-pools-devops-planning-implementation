@@ -171,10 +171,11 @@ keys, or Terraform state in this worksheet, Git, pipeline YAML, or plan output.
 | Log Analytics workspace name, region and access mode | `TBD` | Observability |
 | Workspace retention, data export, access and cost controls | `TBD` | Observability/compliance |
 | Diagnostic categories and destination verification per resource type | `TBD` | Observability/DBA |
-| CPU, data I/O, log I/O, storage, worker/session alert thresholds | `TBD` | DBA + SRE |
+| CPU, physical data read, log write, storage, worker/session alert thresholds | `TBD` | DBA + SRE |
 | Alert evaluation window, frequency, severity and action policy | `TBD` | SRE |
 | Staffed action group receiver and test evidence | `TBD` | Operations |
-| Dashboards/workbook and required fleet/database drilldowns | `TBD` | SRE/DBA |
+| Built-in SQL operations workbook access and required fleet/database drilldowns | `TBD` | SRE/DBA |
+| Selected diagnostic categories by resource type; sensitivity and ingestion-cost review | `TBD` | DBA + security + FinOps |
 | SLI/SLO, user-facing availability/performance objectives | `TBD` | Service owner |
 | Incident severity, escalation matrix and support contracts | `TBD` | Operations |
 | Cost monitoring and budget threshold policy | `TBD` | FinOps |
@@ -220,8 +221,10 @@ values and is not production input.
 | `workspace_name` | Globally unique, policy-compliant workspace name and ownership. |
 | `workspace_retention_in_days` | Approved range and cost/compliance review; default is not an approval. |
 | `operator_email` | Staffed, tested, approved operational email. |
-| `pool_cpu_alert_threshold` | DBA/SRE-tuned value with evaluation policy and action response. |
-| `pool_data_io_alert_threshold` | DBA/SRE-tuned value with evaluation policy and action response. |
+| `pool_metric_alert_thresholds` | Exactly six approved 0-100 thresholds for `cpu_percent`, `physical_data_read_percent`, `log_write_percent`, `workers_percent`, `sessions_percent` and `storage_percent`; tune against measured workload. |
+| `diagnostic_log_categories` | Explicitly selected supported SQL log categories; the module intersects them with categories available on each resource. Review sensitive data, access and ingestion cost. |
+| `workspace_retention_in_days` | Approved workspace retention with compliance and ingestion-cost basis. |
+| `operator_email` | Staffed, monitored on-call receiver; test it in nonproduction and document acknowledgement/escalation. |
 | `tags` | Organization-approved environment, service owner, cost center, data classification and required tags. |
 
 Review this table against `variables.tf` whenever module inputs change.

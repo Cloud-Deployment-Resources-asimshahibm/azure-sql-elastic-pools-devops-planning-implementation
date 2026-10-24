@@ -10,8 +10,24 @@ private_dns_zone_id        = "/subscriptions/00000000-0000-0000-0000-00000000000
 workspace_name             = "law-sql-prod-12345"
 workspace_retention_in_days = 90
 operator_email             = "dba-oncall@example.com"
-pool_cpu_alert_threshold   = 80
-pool_data_io_alert_threshold = 80
+pool_metric_alert_thresholds = {
+  cpu_percent                = 80
+  physical_data_read_percent = 80
+  log_write_percent          = 80
+  workers_percent            = 80
+  sessions_percent           = 80
+  storage_percent            = 85
+}
+
+diagnostic_log_categories = [
+  "DatabaseWaitStatistics",
+  "Deadlocks",
+  "Errors",
+  "QueryStoreRuntimeStatistics",
+  "QueryStoreWaitStatistics",
+  "SQLSecurityAuditEvents",
+  "Timeouts"
+]
 
 tags = {
   environment       = "production"

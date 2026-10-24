@@ -15,8 +15,8 @@ workspace_name             = "TBD"
 # Do not rely on module defaults as production decisions.
 workspace_retention_in_days  = 0
 operator_email               = "TBD"
-pool_cpu_alert_threshold     = 0
-pool_data_io_alert_threshold = 0
+pool_metric_alert_thresholds = {}
+diagnostic_log_categories    = []
 
 pools     = {}
 databases = {}

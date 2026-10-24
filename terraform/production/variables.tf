@@ -149,25 +149,71 @@ variable "operator_email" {
   type        = string
 }
 
-variable "pool_cpu_alert_threshold" {
-  description = "Approved average pool CPU alert threshold in percent."
-  type        = number
-  default     = 80
+variable "pool_metric_alert_thresholds" {
+  description = "Approved average elastic-pool saturation thresholds (percent) for CPU, data read, log write, workers, sessions, and storage."
+  type        = map(number)
+  default = {
+    cpu_percent                = 80
+    physical_data_read_percent = 80
+    log_write_percent          = 80
+    workers_percent            = 80
+    sessions_percent           = 80
+    storage_percent            = 85
+  }
 
   validation {
-    condition     = var.pool_cpu_alert_threshold > 0 && var.pool_cpu_alert_threshold <= 100
-    error_message = "CPU alert threshold must be greater than 0 and no more than 100 percent."
+    condition = length(var.pool_metric_alert_thresholds) == 6 && alltrue([
+      for metric in [
+        "cpu_percent",
+        "physical_data_read_percent",
+        "log_write_percent",
+        "workers_percent",
+        "sessions_percent",
+        "storage_percent"
+      ] :
+      contains(keys(var.pool_metric_alert_thresholds), metric) &&
+      try(var.pool_metric_alert_thresholds[metric], 0) > 0 &&
+      try(var.pool_metric_alert_thresholds[metric], 0) <= 100
+    ])
+    error_message = "Set approved 0-100 percent thresholds for cpu_percent, physical_data_read_percent, log_write_percent, workers_percent, sessions_percent, and storage_percent."
   }
 }
 
-variable "pool_data_io_alert_threshold" {
-  description = "Approved average pool data I/O alert threshold in percent."
-  type        = number
-  default     = 80
+variable "diagnostic_log_categories" {
+  description = "Approved SQL diagnostic categories to export when the target resource supports them; review volume, sensitivity, and cost."
+  type        = set(string)
+  default = [
+    "DatabaseWaitStatistics",
+    "Deadlocks",
+    "Errors",
+    "QueryStoreRuntimeStatistics",
+    "QueryStoreWaitStatistics",
+    "SQLSecurityAuditEvents",
+    "Timeouts"
+  ]
 
   validation {
-    condition     = var.pool_data_io_alert_threshold > 0 && var.pool_data_io_alert_threshold <= 100
-    error_message = "Data I/O alert threshold must be greater than 0 and no more than 100 percent."
+    condition = length(var.diagnostic_log_categories) > 0 && alltrue([
+      for category in var.diagnostic_log_categories :
+      contains([
+        "AutomaticTuning",
+        "Blocks",
+        "DatabaseWaitStatistics",
+        "Deadlocks",
+        "DevOpsOperationsAudit",
+        "DmsWorkers",
+        "Errors",
+        "ExecRequests",
+        "QueryStoreRuntimeStatistics",
+        "QueryStoreWaitStatistics",
+        "RequestSteps",
+        "SQLInsights",
+        "SQLSecurityAuditEvents",
+        "Timeouts",
+        "Waits"
+      ], category)
+    ])
+    error_message = "Use one or more supported Azure SQL diagnostic categories; verify category availability for each resource type."
   }
 }
 

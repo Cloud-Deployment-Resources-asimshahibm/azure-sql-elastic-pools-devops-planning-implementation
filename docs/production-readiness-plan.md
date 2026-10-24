@@ -83,7 +83,7 @@ Do not pass a gate if any applicable item is unknown, unowned, or unsupported:
 | Environment configuration | Non-secret, reviewed environment configuration derived from [`environment-inputs.md`](environment-inputs.md). | Protected tfvars/variable group values and approval history; secrets only in approved secret store. |
 | Infrastructure code | `terraform/production/*.tf`, reviewed module/provider versions, generated `.terraform.lock.hcl`, and code review. | Provider checksums, plan approval, CI results and Azure activity evidence. |
 | Delivery | `azure-pipelines.yml`, `scripts/terraform-ado.sh`, protected branch, workload identity, restricted agent, gated environment. | Azure DevOps service connection, access review, branch checks, approvals and artifact permissions. |
-| Operations | Existing operations runbook, alerts, ownership and escalation. | Dashboards, alert test, on-call records, incident exercises and tuning review. |
+| Operations/observability | Built-in Log Analytics diagnostics, SQL auditing, six per-pool saturation alerts, action group, and Azure Monitor workbook; application telemetry contract and operating procedures. | Ingestion freshness/category review, workbook query checks, alert routing test, on-call records, incident exercises and DBA/SRE threshold tuning. |
 | Resilience | Approved recovery design and environment mapping. | Isolated restore test, failover exercise, measured data loss/RTO and corrective actions. |
 
 ## 5. Configuration and release workflow

@@ -3,8 +3,12 @@
 This root provisions an Entra-only Azure SQL logical server with public network
 access disabled, configured vCore elastic pools/databases, a SQL Private
 Endpoint using existing subnet and Private DNS zone IDs, Log Analytics,
-server auditing, server/master/pool/database diagnostic settings, an email
-action group, and per-pool CPU/data-I/O alerts.
+server auditing, selected diagnostic categories for server/master/every
+pool/every database, an email action group, six per-pool saturation alerts
+(CPU, physical data reads, log writes, workers, sessions, storage), and an
+Azure Monitor workbook with utilization trends and latest pool metrics.
+See the [observability specification](../../docs/observability-monitoring.md)
+for exact coverage, threshold inputs, cost considerations and acceptance checks.
 
 It intentionally does not provision shared networking, the Azure Storage
 backend, identity/RBAC, Azure DevOps resources, or a DR topology. Complete the
@@ -21,8 +25,10 @@ before running an authenticated plan.
 2. Set backend values and identity authentication through the Azure DevOps
    variable group and OIDC service connection; do not put backend credentials
    in Terraform files.
-3. Verify SKU, region, capacity, alert, retention, tag, and cost decisions with
-   the responsible owners. Sample values are not sizing advice.
+3. Verify SKU, region, capacity, alert thresholds, diagnostic categories,
+   workspace retention, tag, and cost decisions with the responsible owners.
+   Metric thresholds and categories in the example are starting points, not
+   policy decisions or workload-specific advice.
    Record evidence in the [environment worksheet](../../docs/environment-inputs.md)
    and complete the [production readiness plan](../../docs/production-readiness-plan.md).
 4. Use the committed `.terraform.lock.hcl`, which records provider checksums
@@ -50,3 +56,6 @@ be run before the production plan gate.
 
 Terraform state and saved plan files can expose infrastructure details. Keep
 both private, restrict access, and follow the organization's retention policy.
+Workspace retention and selected diagnostic categories are environment choices;
+review sensitive log content, ingestion/cost projections and access control
+before any authenticated plan.

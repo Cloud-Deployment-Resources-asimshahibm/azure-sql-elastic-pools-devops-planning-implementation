@@ -49,8 +49,9 @@ flowchart LR
     law["Log Analytics workspace"]
     diag["Diagnostics<br/>server + master + every pool + every DB"]
     audit["SQL auditing<br/>Log Analytics"]
-    alerts["Metric alerts<br/>pool CPU + data I/O"]
+    alerts["Metric alerts per pool<br/>CPU + data reads + log writes<br/>workers + sessions + storage"]
     ag["Action group<br/>staffed on-call"]
+    workbook["Azure Monitor workbook<br/>trends + latest samples"]
     server --> poolA
     server --> poolB
     poolA --> dbs
@@ -64,6 +65,7 @@ flowchart LR
     poolA --> alerts
     poolB --> alerts
     alerts --> ag --> dba
+    law --> workbook --> dba
   end
 
   apps -->|TLS 1.2+ over private address| pe
@@ -72,6 +74,11 @@ flowchart LR
   ado -. reviewed plan and approved apply .-> agent
   agent -. Azure Resource Manager .-> workload
 ```
+
+The Terraform baseline creates the workspace, selected SQL diagnostic settings,
+auditing, six metric alerts per pool, action group and operations workbook.
+See [built-in observability](observability-monitoring.md) for metric identifiers,
+threshold inputs, coverage and acceptance checks.
 
 The editable source diagrams for the deployment lifecycle and recovery
 topology are in [`../diagrams/`](../diagrams/README.md). These designs are
@@ -127,7 +134,7 @@ flowchart LR
 | Application to SQL | Resolve the SQL server FQDN to its private address through the linked Private DNS zone. Permit TCP 1433 only from approved application subnets. Require encrypted connections and validate certificate/hostname behavior in each client. |
 | Terraform agent to Azure | Use an Azure DevOps Azure Resource Manager service connection configured for workload identity federation. Scope RBAC to the application resource group and the exact network/DNS resources needed. No saved client secret. |
 | Terraform agent to state | Use the AzureRM backend with Microsoft Entra data-plane authorization and Blob leases. Place the storage account behind private networking; the deployment agent must resolve and reach its private endpoint. Do not use access keys or SAS tokens. |
-| Azure SQL to monitoring | Configure diagnostic settings on the logical server, every pool, and every database. Apply approved workspace access, retention, region, and cost controls. Diagnostic export is not an application connection path. |
+| Azure SQL to monitoring | Terraform configures selected diagnostic settings on the logical server, `master`, every pool, and every database, plus server auditing. Apply approved workspace access, retention, region, and cost controls. Diagnostic export is not an application connection path. |
 | Recovery region | Provision and test the selected geo-replication/failover-group design separately. Specify secondary servers/pools, capacity, quotas, DNS/listener behavior, application retries, and data-loss acceptance. |
 
 ## Resource ownership
@@ -194,9 +201,12 @@ before production acceptance and schedule recurring drills.
 
 `terraform/production` creates the logical server, configurable pools and
 databases, SQL Private Endpoint with a DNS zone group, Log Analytics workspace,
-server auditing, server/master/pool/database diagnostic settings, an on-call
-email action group, and per-pool CPU/data-I/O metric alerts. It consumes
-existing network IDs and does not connect to or alter application data.
+server auditing, selected server/master/pool/database diagnostic settings,
+per-pool alerts for six saturation signals, a workbook, and an on-call email
+action group. It consumes existing network IDs and does not connect to or
+alter application data. Thresholds and diagnostic categories require
+environment-specific review; the workbook is a baseline and does not replace
+application telemetry or an approved SLO.
 
 It does not create a VNet, DNS zone/link, state backend, Azure DevOps identity
 or approvals, firewall exception, SQL user, failover group, application

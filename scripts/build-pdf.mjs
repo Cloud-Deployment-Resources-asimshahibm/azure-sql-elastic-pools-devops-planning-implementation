@@ -7,6 +7,7 @@ const rootDir = path.resolve(scriptDir, "..");
 const sourcePaths = [
   "docs/production-readiness-plan.md",
   "docs/environment-inputs.md",
+  "docs/observability-monitoring.md",
   "docs/production-deployment-runbook.md"
 ].map(filePath => path.join(rootDir, filePath));
 const outputPath = path.join(rootDir, "docs", "Azure-SQL-Elastic-Pool-Operations-Runbook.pdf");

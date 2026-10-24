@@ -27,3 +27,13 @@ output "log_analytics_workspace_id" {
   description = "Resource ID of the diagnostic destination workspace."
   value       = azurerm_log_analytics_workspace.sql.id
 }
+
+output "sql_operations_workbook_id" {
+  description = "Resource ID of the Azure Monitor workbook for elastic-pool operations."
+  value       = azurerm_application_insights_workbook.sql_operations.id
+}
+
+output "pool_saturation_alert_ids" {
+  description = "Metric alert IDs for each configured pool and saturation signal."
+  value       = { for key, alert in azurerm_monitor_metric_alert.pool_saturation : key => alert.id }
+}

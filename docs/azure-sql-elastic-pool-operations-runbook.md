@@ -70,6 +70,14 @@ Analytics; alert rules notify the action group; an Azure Monitor Workbook
 provides fleet and drill-down views; and a separately tested recovery region
 supports the defined business continuity plan.
 
+The Terraform project includes a Log Analytics workspace, SQL auditing,
+selected diagnostics for server/master/every pool/every database, a built-in
+operations workbook and six saturation alerts per pool. See the
+[project observability specification](observability-monitoring.md) for the
+managed metrics, actual metric identifiers, threshold inputs and acceptance
+checks. The fleet-scale guidance below is supplemental; do not duplicate
+Terraform-managed portal resources.
+
 ### Design decisions
 
 1. **Workload isolation:** Place databases with compatible workload, latency,
@@ -226,6 +234,12 @@ to production without workload analysis and cost approval.
 
 ### Step 5 — Configure diagnostic settings at both scopes
 
+Terraform configures selected categories on the logical server, `master`,
+every pool and every database, based on each resource's available categories.
+Use the manual procedure below only for SQL resources outside that Terraform
+stack or for a separately approved extension. Avoid creating a duplicate
+portal-managed diagnostic setting for Terraform-owned resources.
+
 Azure SQL does not export all diagnostics automatically. Configure the
 **elastic-pool resource** and each **database resource** separately:
 
@@ -253,6 +267,14 @@ database's telemetry. A pool diagnostic setting does not cover its member
 databases.
 
 ### Step 6 — Create actionable alerting
+
+Terraform creates six average metric alerts per pool and routes them to the
+configured action group: CPU (`cpu_percent`), physical data reads
+(`physical_data_read_percent`), log writes (`log_write_percent`), workers
+(`workers_percent`), sessions (`sessions_percent`), and storage
+(`storage_percent`). The example thresholds are illustrative and require
+workload-based DBA/SRE approval. The additional signals and examples below are
+operating guidance; check service support and avoid duplicate alert rules.
 
 Create an action group first and test that an alert reaches the correct staffed
 team. In Azure portal, open **Monitor → Alerts → Create → Alert rule**. Scope
@@ -566,12 +588,15 @@ query parameters in tickets.
   representative workload measurements and a cost review.
 - [ ] RBAC, identity, private networking/DNS, policy, auditing, and security
   controls passed validation.
-- [ ] Diagnostics are enabled for every pool and every database; workspace
-  freshness and retention are verified.
+- [ ] Diagnostics are enabled for the logical server, `master`, every pool and
+  every database; selected categories, workspace freshness and retention are
+  verified.
 - [ ] Metric/log alerts have tuned thresholds, severity, ownership, and tested
   action-group delivery.
-- [ ] Fleet Workbook supports subscription/environment/server/pool/database
-  drilldown and includes operational links and metric caveats.
+- [ ] The built-in operations workbook returns current metric data, and alert
+  rules cover six saturation signals per pool with approved thresholds.
+- [ ] Any additional fleet Workbook has approved subscription/environment/
+  server/pool/database drilldown, operational links and metric caveats.
 - [ ] CI/IaC changes are reviewed, repeatable, least-privilege, and have
   nonproduction/rollback evidence.
 - [ ] Restore and regional recovery have documented run steps, application
@@ -588,6 +613,7 @@ metric names, available diagnostic categories, and pricing can change.
 - [Manage elastic pools](https://learn.microsoft.com/azure/azure-sql/database/elastic-pool-manage)
 - [Monitor Azure SQL Database with metrics and alerts](https://learn.microsoft.com/azure/azure-sql/database/monitoring-metrics-alerts)
 - [Elastic pool metric reference](https://learn.microsoft.com/azure/azure-monitor/reference/supported-metrics/microsoft-sql-servers-elasticpools-metrics)
+- [Project observability implementation](observability-monitoring.md)
 - [Configure export of Azure SQL metrics and resource logs](https://learn.microsoft.com/azure/azure-sql/database/metrics-diagnostic-telemetry-logging-streaming-export-configure)
 - [Azure Monitor Workbooks overview](https://learn.microsoft.com/azure/azure-monitor/visualize/workbooks-overview)
 - [Azure SQL Database failover groups](https://learn.microsoft.com/azure/azure-sql/database/failover-group-sql-db)

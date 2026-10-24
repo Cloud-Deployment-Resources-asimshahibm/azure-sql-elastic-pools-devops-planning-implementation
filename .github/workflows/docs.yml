@@ -36,6 +36,9 @@ jobs:
       - name: Check deployment helper syntax
         run: bash -n scripts/terraform-ado.sh
 
+      - name: Check built-in observability coverage
+        run: node scripts/validate-observability.mjs
+
       - name: Rebuild production runbook PDF
         run: node scripts/build-pdf.mjs
 

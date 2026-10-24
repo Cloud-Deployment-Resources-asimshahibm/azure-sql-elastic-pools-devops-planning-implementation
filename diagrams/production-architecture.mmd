@@ -41,9 +41,10 @@ flowchart LR
       poolA --> dbs
       poolB --> dbs
     end
-    monitor["Azure Monitor<br/>metrics + alerts"]
+    monitor["Azure Monitor<br/>6 saturation alerts per pool"]
     diagnostics["Diagnostics + auditing"]
     law["Log Analytics<br/>approved retention"]
+    workbook["Operations workbook<br/>trend + latest metrics"]
     oncall["Staffed on-call<br/>action group"]
     server --> poolA
     server --> poolB
@@ -53,6 +54,8 @@ flowchart LR
     poolB --> monitor
     dbs --> diagnostics
     monitor --> oncall
+    law --> workbook
+    workbook --> oncall
   end
 
   subgraph recovery["Approved recovery region - separately designed"]

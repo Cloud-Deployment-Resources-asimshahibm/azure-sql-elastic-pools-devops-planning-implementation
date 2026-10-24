@@ -11,6 +11,7 @@ pipeline. No Azure resources are created by preparing or validating this repo.
 - **Environment worksheet:** [All environment-specific inputs and approvals](docs/environment-inputs.md)
 - **Printable guide:** [Download the PDF](docs/Azure-SQL-Elastic-Pool-Operations-Runbook.pdf)
 - **Architecture:** [Reference design and trust boundaries](docs/architecture.md)
+- **Built-in monitoring:** [Observability coverage, thresholds, workbook, and operations](docs/observability-monitoring.md)
 - **Diagrams:** [Diagram sources](diagrams/README.md)
 - **Operations:** [SQL elastic pool operating procedures](docs/azure-sql-elastic-pool-operations-runbook.md)
 - **Terraform:** [`terraform/production`](terraform/production/README.md)
@@ -22,9 +23,10 @@ The Terraform root module provisions an Azure SQL logical server configured for
 Microsoft Entra-only authentication and disabled public network access;
 configurable vCore elastic pools and pooled databases; a Private Endpoint to an
 existing VNet subnet and Private DNS zone; Log Analytics; diagnostic settings
-for the server, master database, pools, and databases; server auditing to
-Log Analytics; an email action group; and per-pool CPU and data-I/O metric
-alerts.
+for the server, master database, pools, and databases; server auditing;
+an Azure Monitor workbook; a staffed email action group; and per-pool CPU,
+physical data-read, log-write, worker, session, and storage saturation alerts.
+See the [built-in observability specification](docs/observability-monitoring.md).
 
 The VNet, Private Endpoint subnet, Private DNS zones and VNet links,
 state-storage account, identity, role assignments, Azure DevOps project,
@@ -90,12 +92,13 @@ terraform -chdir=terraform/production fmt -check -recursive
 terraform -chdir=terraform/production init -backend=false
 terraform -chdir=terraform/production validate
 bash -n scripts/terraform-ado.sh
+node scripts/validate-observability.mjs
 node scripts/build-pdf.mjs
 ```
 
 The generated PDF is checked into `docs/` and rebuilt by CI from the readiness
-plan, environment worksheet, and production deployment runbook. Detailed
-operational procedures remain in
+plan, environment worksheet, observability specification and production
+deployment runbook. Detailed operational procedures remain in
 [`docs/azure-sql-elastic-pool-operations-runbook.md`](docs/azure-sql-elastic-pool-operations-runbook.md).
 The Terraform provider lock file includes checksums for the Linux pipeline
 agent and Windows local validation.

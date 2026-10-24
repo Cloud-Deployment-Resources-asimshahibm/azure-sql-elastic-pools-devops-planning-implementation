@@ -137,7 +137,10 @@ resource "azurerm_monitor_diagnostic_setting" "server" {
   log_analytics_destination_type = "Dedicated"
 
   dynamic "enabled_log" {
-    for_each = toset(data.azurerm_monitor_diagnostic_categories.server.log_category_types)
+    for_each = setintersection(
+      var.diagnostic_log_categories,
+      toset(data.azurerm_monitor_diagnostic_categories.server.log_category_types)
+    )
     content {
       category = enabled_log.value
     }
@@ -155,7 +158,10 @@ resource "azurerm_monitor_diagnostic_setting" "master_database" {
   log_analytics_destination_type = "Dedicated"
 
   dynamic "enabled_log" {
-    for_each = toset(data.azurerm_monitor_diagnostic_categories.master_database.log_category_types)
+    for_each = setintersection(
+      var.diagnostic_log_categories,
+      toset(data.azurerm_monitor_diagnostic_categories.master_database.log_category_types)
+    )
     content {
       category = enabled_log.value
     }
@@ -179,7 +185,10 @@ resource "azurerm_monitor_diagnostic_setting" "pool" {
   log_analytics_destination_type = "Dedicated"
 
   dynamic "enabled_log" {
-    for_each = toset(data.azurerm_monitor_diagnostic_categories.pool[each.key].log_category_types)
+    for_each = setintersection(
+      var.diagnostic_log_categories,
+      toset(data.azurerm_monitor_diagnostic_categories.pool[each.key].log_category_types)
+    )
     content {
       category = enabled_log.value
     }
@@ -203,7 +212,10 @@ resource "azurerm_monitor_diagnostic_setting" "database" {
   log_analytics_destination_type = "Dedicated"
 
   dynamic "enabled_log" {
-    for_each = toset(data.azurerm_monitor_diagnostic_categories.database[each.key].log_category_types)
+    for_each = setintersection(
+      var.diagnostic_log_categories,
+      toset(data.azurerm_monitor_diagnostic_categories.database[each.key].log_category_types)
+    )
     content {
       category = enabled_log.value
     }
@@ -211,61 +223,5 @@ resource "azurerm_monitor_diagnostic_setting" "database" {
 
   enabled_metric {
     category = "AllMetrics"
-  }
-}
-
-resource "azurerm_monitor_metric_alert" "pool_cpu" {
-  for_each = azurerm_mssql_elasticpool.pool
-
-  name                     = "alert-${each.key}-cpu"
-  resource_group_name      = var.resource_group_name
-  scopes                   = [each.value.id]
-  target_resource_type     = "Microsoft.Sql/servers/elasticPools"
-  target_resource_location = var.location
-  description              = "Average elastic pool CPU exceeded the approved threshold."
-  severity                 = 2
-  frequency                = "PT1M"
-  window_size              = "PT5M"
-  enabled                  = true
-  tags                     = local.common_tags
-
-  criteria {
-    metric_namespace = "Microsoft.Sql/servers/elasticPools"
-    metric_name      = "cpu_percent"
-    aggregation      = "Average"
-    operator         = "GreaterThan"
-    threshold        = var.pool_cpu_alert_threshold
-  }
-
-  action {
-    action_group_id = azurerm_monitor_action_group.sql_oncall.id
-  }
-}
-
-resource "azurerm_monitor_metric_alert" "pool_data_io" {
-  for_each = azurerm_mssql_elasticpool.pool
-
-  name                     = "alert-${each.key}-data-io"
-  resource_group_name      = var.resource_group_name
-  scopes                   = [each.value.id]
-  target_resource_type     = "Microsoft.Sql/servers/elasticPools"
-  target_resource_location = var.location
-  description              = "Average elastic pool data I/O exceeded the approved threshold."
-  severity                 = 2
-  frequency                = "PT1M"
-  window_size              = "PT5M"
-  enabled                  = true
-  tags                     = local.common_tags
-
-  criteria {
-    metric_namespace = "Microsoft.Sql/servers/elasticPools"
-    metric_name      = "data_io_percent"
-    aggregation      = "Average"
-    operator         = "GreaterThan"
-    threshold        = var.pool_data_io_alert_threshold
-  }
-
-  action {
-    action_group_id = azurerm_monitor_action_group.sql_oncall.id
   }
 }
