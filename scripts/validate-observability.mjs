@@ -9,6 +9,8 @@ const observability = read("terraform/production/observability.tf");
 const main = read("terraform/production/main.tf");
 const variables = read("terraform/production/variables.tf");
 const outputs = read("terraform/production/outputs.tf");
+const monitoringDocs = read("docs/observability-monitoring.md");
+const readme = read("README.md");
 
 const metrics = [
   "cpu_percent",
@@ -30,6 +32,8 @@ assert.match(observability, /resource "azurerm_application_insights_workbook" "s
 assert.match(observability, /resourceType\s+= "microsoft\.operationalinsights\/workspaces"/);
 assert.match(outputs, /output "sql_operations_workbook_id"/);
 assert.match(outputs, /output "pool_saturation_alert_ids"/);
+assert.match(monitoringDocs, /Grafana and Prometheus integration and dashboard setup are \*\*not part of this[\s\S]*Terraform deployment/);
+assert.match(readme, /Grafana and Prometheus[\s\S]*separate future task/);
 assert.equal((main.match(/setintersection\(/g) ?? []).length, 4, "diagnostic category filters must cover server, master, pools and databases");
 
 console.log("Observability coverage checks passed.");

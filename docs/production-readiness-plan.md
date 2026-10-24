@@ -26,6 +26,7 @@
 - Selecting an actual subscription, tenant, region, SKU, pool size, budget, data classification, or production owner.
 - Creating or changing any Azure resource, role assignment, Azure DevOps resource, DNS record, or network rule.
 - Schema/data migration, application code changes, identity enrollment, data import, and production cutover.
+- Grafana/Prometheus platform integration, exporter or scrape configuration, and dashboard implementation; track and approve this as a separate observability task.
 - A claim that regional failover, restore, high availability, capacity, or service-level objectives have been tested.
 - Secrets, personal information, credentials, subscription IDs, customer data, or production state in this Git repository.
 
@@ -83,7 +84,7 @@ Do not pass a gate if any applicable item is unknown, unowned, or unsupported:
 | Environment configuration | Non-secret, reviewed environment configuration derived from [`environment-inputs.md`](environment-inputs.md). | Protected tfvars/variable group values and approval history; secrets only in approved secret store. |
 | Infrastructure code | `terraform/production/*.tf`, reviewed module/provider versions, generated `.terraform.lock.hcl`, and code review. | Provider checksums, plan approval, CI results and Azure activity evidence. |
 | Delivery | `azure-pipelines.yml`, `scripts/terraform-ado.sh`, protected branch, workload identity, restricted agent, gated environment. | Azure DevOps service connection, access review, branch checks, approvals and artifact permissions. |
-| Operations/observability | Built-in Log Analytics diagnostics, SQL auditing, six per-pool saturation alerts, action group, and Azure Monitor workbook; application telemetry contract and operating procedures. | Ingestion freshness/category review, workbook query checks, alert routing test, on-call records, incident exercises and DBA/SRE threshold tuning. |
+| Operations/observability | Built-in Azure-native Log Analytics diagnostics, SQL auditing, six per-pool saturation alerts, action group, and Azure Monitor workbook; application telemetry contract and operating procedures. Grafana/Prometheus integration and dashboard setup are a separately scoped follow-up, not part of this delivery. | Ingestion freshness/category review, workbook query checks, alert routing test, on-call records, incident exercises and DBA/SRE threshold tuning. For the separate Grafana/Prometheus task, approve platform/source/security/cost design and verify data coverage, access, dashboards, alert routing, and support ownership. |
 | Resilience | Approved recovery design and environment mapping. | Isolated restore test, failover exercise, measured data loss/RTO and corrective actions. |
 
 ## 5. Configuration and release workflow

@@ -11,6 +11,25 @@ categories, retention, access, notification routing, ingestion volume, and
 cost must be approved for the real environment. No Azure telemetry is
 collected while preparing or validating this repository.
 
+## Separate follow-up: Grafana and Prometheus
+
+Grafana and Prometheus integration and dashboard setup are **not part of this
+Terraform deployment or the current observability deliverable**. They must be
+designed, estimated, approved, and implemented as a separate task. The
+Azure-native Log Analytics, Azure Monitor alerts, and workbook described here
+remain the current baseline; do not assume that a Grafana workspace, Prometheus
+server, exporter, scrape configuration, or Grafana dashboard is provisioned.
+
+That separate task should confirm the monitoring platform and ownership, decide
+which Azure SQL signals come from Azure Monitor versus a supported exporter or
+other approved source, define private network and identity/access boundaries,
+select managed or self-hosted Grafana/Prometheus components, and document
+retention, availability, cost, alert routing, and operational ownership. Its
+acceptance should include validated data freshness and metric coverage,
+dashboard access controls, tested alert delivery, and an approved support
+runbook. Avoid adding a SQL exporter or credentials until its security and
+network design has been reviewed.
+
 ## Provisioned monitoring surfaces
 
 | Surface | Terraform implementation | Coverage and operational use |

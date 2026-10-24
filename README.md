@@ -26,7 +26,10 @@ existing VNet subnet and Private DNS zone; Log Analytics; diagnostic settings
 for the server, master database, pools, and databases; server auditing;
 an Azure Monitor workbook; a staffed email action group; and per-pool CPU,
 physical data-read, log-write, worker, session, and storage saturation alerts.
-See the [built-in observability specification](docs/observability-monitoring.md).
+This is the Azure-native monitoring baseline. Grafana and Prometheus
+integration/dashboard setup is explicitly a separate future task and is not
+provisioned by this Terraform root. See the
+[built-in observability specification](docs/observability-monitoring.md).
 
 The VNet, Private Endpoint subnet, Private DNS zones and VNet links,
 state-storage account, identity, role assignments, Azure DevOps project,
