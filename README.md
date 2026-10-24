@@ -1,4 +1,4 @@
-# Azure SQL Elastic Pool Production Deployment
+# Azure SQL Elastic Pools (DevOps Planning & Implementation)
 
 A cost-free production planning and deployment repository for Azure SQL
 Database elastic pools. It contains a gated implementation plan, environment

@@ -16,24 +16,24 @@ endobj
 << /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
 endobj
 6 0 obj
-<< /Length 759 >>
+<< /Length 768 >>
 stream
 0.07 0.22 0.39 rg 0 0 612 792 re f
-BT 1 1 1 rg /F2 26 Tf 1 0 0 1 64 625 Tm (Azure SQL Elastic Pool) Tj ET
-BT 1 1 1 rg /F2 26 Tf 1 0 0 1 64 590 Tm (Production Planning + Deployment) Tj ET
+BT 1 1 1 rg /F2 25 Tf 1 0 0 1 64 625 Tm (Azure SQL Elastic Pools) Tj ET
+BT 1 1 1 rg /F2 22 Tf 1 0 0 1 64 590 Tm (DevOps Planning & Implementation) Tj ET
 BT 0.83 0.91 0.97 rg /F1 13 Tf 1 0 0 1 66 540 Tm (Readiness plan, environment worksheet, Terraform,) Tj ET
 BT 0.83 0.91 0.97 rg /F1 13 Tf 1 0 0 1 66 519 Tm (Azure DevOps, operations, and recovery) Tj ET
 0.22 0.48 0.67 rg 64 460 484 2 re f
 BT 1 1 1 rg /F2 12 Tf 1 0 0 1 66 425 Tm (Reference scale: 10+ elastic pools / 100+ databases) Tj ET
 BT 0.83 0.91 0.97 rg /F1 10 Tf 1 0 0 1 66 390 Tm (Planning template only - no Azure subscription or deployment included.) Tj ET
-BT 0.83 0.91 0.97 rg /F1 9 Tf 1 0 0 1 66 62 Tm (Project: azure-sql-elastic-pool-production-runbook) Tj ET
+BT 0.83 0.91 0.97 rg /F1 9 Tf 1 0 0 1 66 62 Tm (Azure SQL Elastic Pools - DevOps Planning & Implementation) Tj ET
 endstream
 endobj
 7 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 6 0 R >>
 endobj
 8 0 obj
-<< /Length 5439 >>
+<< /Length 5458 >>
 stream
 BT 0.07 0.22 0.39 rg /F2 17 Tf 1 0 0 1 52 718 Tm (PRODUCTION REFERENCE ARCHITECTURE) Tj ET
 0.91 0.95 0.98 rg 58 574 148 72 re f
@@ -112,7 +112,7 @@ BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 101.70000000000003 Tm (Cost boundary | No Azur
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 91.90000000000003 Tm (checks are designed to be cost-free. Later Azure plans/applies and deployed services may incur charges.) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 82.10000000000004 Tm (Authority to deploy | None is granted by this document. A separately approved change and authorized) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 72.30000000000004 Tm (subscription are required.) Tj ET
-BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
+BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (2) Tj ET
 endstream
 endobj
@@ -120,7 +120,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 8 0 R >>
 endobj
 10 0 obj
-<< /Length 6904 >>
+<< /Length 6923 >>
 stream
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 740 Tm (Required companion | Complete every applicable row in environment inputs and the deployment runbook.) Tj ET
 BT 0.07 0.22 0.39 rg /F2 13.5 Tf 1 0 0 1 52 721.2 Tm (1. Outcomes and exclusions) Tj ET
@@ -177,7 +177,7 @@ BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 105.8 Tm (Every database has a business and te
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 96 Tm (1. Workload discovery | Peak and percentile CPU, data/log I/O, workers, sessions, storage, concurrency,) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 86.2 Tm (latency, seasonality, batch/reporting peaks, growth and isolation needs. | DBA + application owners |) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 76.4 Tm (Representative evidence covers normal, peak, burst, and growth scenarios; workload classes reviewed.) Tj ET
-BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
+BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (3) Tj ET
 endstream
 endobj
@@ -185,7 +185,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 10 0 R >>
 endobj
 12 0 obj
-<< /Length 9013 >>
+<< /Length 9032 >>
 stream
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 740 Tm (2. Architecture and recovery decisions | Primary/secondary regions, topology, endpoint/DNS paths, SKU and) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 730.2 Tm (feature selection, per-database limits, backup, RPO/RTO, failover/restore method, retention and) Tj ET
@@ -250,7 +250,7 @@ BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 104.70000000000088 Tm (Architecture | architec
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 94.90000000000089 Tm (approval, regional feature support, threat model and decision record.) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 85.10000000000089 Tm (Environment configuration | Non-secret, reviewed environment configuration derived from) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 75.30000000000089 Tm (environment-inputs.md. | Protected tfvars/variable group values and approval history; secrets only in) Tj ET
-BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
+BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (4) Tj ET
 endstream
 endobj
@@ -258,7 +258,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 12 0 R >>
 endobj
 14 0 obj
-<< /Length 8534 >>
+<< /Length 8553 >>
 stream
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 740 Tm (approved secret store.) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 730.2 Tm (Infrastructure code | terraform/production/*.tf, reviewed module/provider versions, generated) Tj ET
@@ -321,7 +321,7 @@ BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 104.70000000000032 Tm (SQL Terraform apply | Y
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 94.90000000000032 Tm (networking, and optional DR are billable.) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 85.10000000000032 Tm (GitHub Actions or Azure DevOps hosted/self-hosted runners | Depends on provider/organization plan and) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 75.30000000000032 Tm (runner model | Review platform quotas/billing separately; Azure resource billing is distinct.) Tj ET
-BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
+BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (5) Tj ET
 endstream
 endobj
@@ -329,7 +329,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 14 0 R >>
 endobj
 16 0 obj
-<< /Length 7633 >>
+<< /Length 7652 >>
 stream
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 740 Tm (No subscription is provided or assumed. No Azure login, plan, apply, state bootstrap, quota) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 727.9 Tm (validation, or Azure resource creation is performed by this planning work.) Tj ET
@@ -385,7 +385,7 @@ BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 153.30000000000058 Tm (version; network, DNS, 
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 141.20000000000059 Tm (Azure service feature support; or a failed restore, security incident, or material service incident.) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 129.1000000000006 Tm (Revalidate links and Azure service limits against current Microsoft documentation.) Tj ET
 BT 0.07 0.22 0.39 rg /F2 19 Tf 1 0 0 1 52 103.0000000000006 Tm (Azure SQL production environment inputs and approval) Tj ET
-BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
+BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (6) Tj ET
 endstream
 endobj
@@ -393,7 +393,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 16 0 R >>
 endobj
 18 0 obj
-<< /Length 7108 >>
+<< /Length 7127 >>
 stream
 BT 0.07 0.22 0.39 rg /F2 19 Tf 1 0 0 1 52 740 Tm (worksheet) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 711 Tm (This worksheet is intentionally unfilled. No Azure subscription, tenant,) Tj ET
@@ -452,7 +452,7 @@ BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 106.39999999999974 Tm (Workload classes, noisy
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 96.59999999999974 Tm (Database-to-pool mapping and owner for every database | TBD) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 86.79999999999974 Tm (vCore/DTU model and service tier decision with feature rationale | TBD) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 76.99999999999974 Tm (SKU name, hardware family and license eligibility evidence | TBD) Tj ET
-BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
+BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (7) Tj ET
 endstream
 endobj
@@ -460,7 +460,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 18 0 R >>
 endobj
 20 0 obj
-<< /Length 7855 >>
+<< /Length 7874 >>
 stream
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 740 Tm (Per-pool capacity, storage cap, and headroom basis | TBD) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 730.2 Tm (Per-database minimum/maximum resource bounds and fairness rationale | TBD) Tj ET
@@ -520,7 +520,7 @@ BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 119.50000000000024 Tm (Restore target isolatio
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 109.70000000000024 Tm (Restore test date, dataset class, integrity checks and measured RTO | TBD | DBA) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 99.90000000000025 Tm (Planned and forced failover authority and criteria | TBD | Incident commander) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 90.10000000000025 Tm (Recurring recovery drill cadence and evidence owner | TBD | Service owner) Tj ET
-BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
+BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (8) Tj ET
 endstream
 endobj
@@ -528,7 +528,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 20 0 R >>
 endobj
 22 0 obj
-<< /Length 7941 >>
+<< /Length 7960 >>
 stream
 BT 0.07 0.22 0.39 rg /F2 13.5 Tf 1 0 0 1 52 737 Tm (7. State backend and delivery platform) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 716.5 Tm (Input | Approved value / evidence reference | Accountable approver) Tj ET
@@ -589,7 +589,7 @@ BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 101.50000000000038 Tm (sql_server_name | Globa
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 91.70000000000039 Tm (availability.) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 81.90000000000039 Tm (sql_entra_admin_login | Approved Entra admin group display name.) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 72.10000000000039 Tm (sql_entra_admin_object_id | Verified, non-zero Entra group GUID in the target tenant.) Tj ET
-BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
+BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (9) Tj ET
 endstream
 endobj
@@ -597,7 +597,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 22 0 R >>
 endobj
 24 0 obj
-<< /Length 6750 >>
+<< /Length 6769 >>
 stream
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 740 Tm (private_endpoint_subnet_id | Exact network-approved subnet resource ID; permissions and address capacity) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 730.2 Tm (verified.) Tj ET
@@ -654,7 +654,7 @@ BT 0 0 0 rg /F1 9 Tf 1 0 0 1 60 117.70000000000056 Tm (- Delivery pipeline: azur
 BT 0 0 0 rg /F1 9 Tf 1 0 0 1 60 106.70000000000056 Tm (- Architecture: Reference architecture) Tj ET
 BT 0 0 0 rg /F1 9 Tf 1 0 0 1 60 95.70000000000056 Tm (- Readiness stages: Production readiness plan) Tj ET
 BT 0 0 0 rg /F1 9 Tf 1 0 0 1 60 84.70000000000056 Tm (- Environment decisions: Environment inputs worksheet) Tj ET
-BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
+BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (10) Tj ET
 endstream
 endobj
@@ -662,7 +662,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 24 0 R >>
 endobj
 26 0 obj
-<< /Length 9159 >>
+<< /Length 9178 >>
 stream
 BT 0.07 0.22 0.39 rg /F2 13.5 Tf 1 0 0 1 52 737 Tm (1. Prerequisite readiness gates) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 716.5 Tm (Do not start a production apply until every item below is verified and the) Tj ET
@@ -727,7 +727,7 @@ BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 106.39999999999974 Tm (group, verify its objec
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 96.59999999999974 Tm (not substitute a personal account or SQL password.) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 86.79999999999974 Tm (Private Endpoint subnet is invalid/full or lacks permissions | Network owner selects a supported subnet,) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 76.99999999999974 Tm (reviews IP capacity/NSG/routes, and grants only the necessary subnet join/write permission. Re-read the) Tj ET
-BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
+BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (11) Tj ET
 endstream
 endobj
@@ -735,7 +735,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 26 0 R >>
 endobj
 28 0 obj
-<< /Length 8126 >>
+<< /Length 8145 >>
 stream
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 740 Tm (exact resource ID; never create a duplicate/shared-network replacement without approval.) Tj ET
 BT 0 0 0 rg /F2 7.8 Tf 1 0 0 1 56 730.2 Tm (Private DNS lookup returns public/no address | Network/DNS owner verifies the exact private zone, VNet) Tj ET
@@ -796,7 +796,7 @@ BT 0.12 0.22 0.31 rg /F3 7.2 Tf 1 0 0 1 62 114.70000000000081 Tm (node --version
 BT 0.12 0.22 0.31 rg /F3 7.2 Tf 1 0 0 1 62 106.50000000000081 Tm (az version) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 91.30000000000081 Tm (If a command is not found, install it from the vendor/approved package) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 79.20000000000081 Tm (repository, open a new terminal so PATH is refreshed, and rerun all four) Tj ET
-BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
+BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (12) Tj ET
 endstream
 endobj
@@ -804,7 +804,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 28 0 R >>
 endobj
 30 0 obj
-<< /Length 6827 >>
+<< /Length 6846 >>
 stream
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 740 Tm (checks. If Terraform reports the wrong version, install the pinned version and) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 727.9 Tm (align the pipeline version deliberately; regenerate and review) Tj ET
@@ -859,7 +859,7 @@ BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 108.59999999999931 Tm (sequence. Run it only w
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 96.49999999999932 Tm (the region, redundancy, names, tags, and retention to organizational policy.) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 84.39999999999932 Tm (The Storage account is created with public network access disabled; the network) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 72.29999999999933 Tm (team must attach its private endpoint and DNS before any blob data-plane) Tj ET
-BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
+BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (13) Tj ET
 endstream
 endobj
@@ -867,7 +867,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 30 0 R >>
 endobj
 32 0 obj
-<< /Length 8222 >>
+<< /Length 8241 >>
 stream
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 740 Tm (operation. Do not temporarily open public access to get around a missing) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 727.9 Tm (private route.) Tj ET
@@ -939,7 +939,7 @@ BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 111.29999999999936 Tm (Use a dedicated, stable
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 99.19999999999936 Tm (backend uses blob leases for state locking. Grant the pipeline identity) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 87.09999999999937 Tm (Storage Blob Data Contributor at the state container \(or the narrowest) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 74.99999999999937 Tm (supported scope\), and authorize state-management actions separately. Never) Tj ET
-BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
+BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (14) Tj ET
 endstream
 endobj
@@ -947,7 +947,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 32 0 R >>
 endobj
 34 0 obj
-<< /Length 7444 >>
+<< /Length 7463 >>
 stream
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 740 Tm (commit state, plan files, access keys, SAS tokens, credentials, or state backups.) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 725.9 Tm (If the storage account is private-only, the plan and apply agent must be able) Tj ET
@@ -1006,7 +1006,7 @@ BT 0 0 0 rg /F1 9 Tf 1 0 0 1 58 110.0999999999994 Tm (9. In Azure DevOps, create
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 99.0999999999994 Tm (/azure-pipelines.yml. Authorize the variable group, workload-identity) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 86.9999999999994 Tm (service connection, and private deployment-agent pool for this pipeline only.) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 74.89999999999941 Tm (Run the initial PR validation first; the main pipeline must show a saved) Tj ET
-BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
+BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (15) Tj ET
 endstream
 endobj
@@ -1014,7 +1014,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 34 0 R >>
 endobj
 36 0 obj
-<< /Length 6932 >>
+<< /Length 6951 >>
 stream
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 740 Tm (plan and stop for the protected sql-prod approval before any apply.) Tj ET
 BT 0.13 0.30 0.45 rg /F2 10.5 Tf 1 0 0 1 52 722.9 Tm (4.4 Workload resource group and Azure providers) Tj ET
@@ -1073,7 +1073,7 @@ BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 118.19999999999925 Tm (TBD worksheet. Confirm 
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 106.09999999999926 Tm (selected region and supported for every database. Validate aggregate pool) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 93.99999999999926 Tm (capacity, per-database limits, storage and workload concurrency. BasePrice) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 81.89999999999927 Tm (requires approved Azure Hybrid Benefit eligibility; zone-redundant vCore pools) Tj ET
-BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
+BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (16) Tj ET
 endstream
 endobj
@@ -1081,7 +1081,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 36 0 R >>
 endobj
 38 0 obj
-<< /Length 7021 >>
+<< /Length 7040 >>
 stream
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 740 Tm (require a supported BusinessCritical SKU/region. Get written approval for) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 727.9 Tm (exceptions.) Tj ET
@@ -1138,7 +1138,7 @@ BT 0.12 0.22 0.31 rg /F3 7.2 Tf 1 0 0 1 62 99.19999999999939 Tm (-backend-config
 BT 0.12 0.22 0.31 rg /F3 7.2 Tf 1 0 0 1 62 90.99999999999939 Tm (-backend-config="storage_account_name=<state-storage-account>" `) Tj ET
 BT 0.12 0.22 0.31 rg /F3 7.2 Tf 1 0 0 1 62 82.79999999999939 Tm (-backend-config="container_name=<state-container>" `) Tj ET
 BT 0.12 0.22 0.31 rg /F3 7.2 Tf 1 0 0 1 62 74.59999999999938 Tm (-backend-config="key=azure-sql/nonprod.tfstate" `) Tj ET
-BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
+BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (17) Tj ET
 endstream
 endobj
@@ -1146,7 +1146,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 38 0 R >>
 endobj
 40 0 obj
-<< /Length 6989 >>
+<< /Length 7008 >>
 stream
 BT 0.12 0.22 0.31 rg /F3 7.2 Tf 1 0 0 1 62 740 Tm (-backend-config="subscription_id=$env:ARM_SUBSCRIPTION_ID" `) Tj ET
 BT 0.12 0.22 0.31 rg /F3 7.2 Tf 1 0 0 1 62 731.8 Tm (-backend-config="tenant_id=$env:ARM_TENANT_ID" `) Tj ET
@@ -1203,7 +1203,7 @@ BT 0 0 0 rg /F1 9 Tf 1 0 0 1 60 108.49999999999909 Tm (- [ ] Entra administrator
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 97.49999999999909 Tm (operator signs in with Entra authentication; no SQL administrator password) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 85.3999999999991 Tm (has been created or shared.) Tj ET
 BT 0 0 0 rg /F1 9 Tf 1 0 0 1 60 73.2999999999991 Tm (- [ ] Every pool has the approved SKU, family, capacity, storage,) Tj ET
-BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
+BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (18) Tj ET
 endstream
 endobj
@@ -1211,7 +1211,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 40 0 R >>
 endobj
 42 0 obj
-<< /Length 7095 >>
+<< /Length 7114 >>
 stream
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 740 Tm (per-database limits, and zone-redundancy setting. Every database is in the) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 727.9 Tm (intended pool with correct maximum storage and retention.) Tj ET
@@ -1267,7 +1267,7 @@ BT 0 0 0 rg /F1 9 Tf 1 0 0 1 58 105.89999999999938 Tm (3. Mitigate through an ap
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 94.89999999999938 Tm (workload isolation, or pre-approved capacity change. Record cost and) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 82.79999999999939 Tm (failover consequences. Use a fresh reviewed pipeline plan for IaC changes.) Tj ET
 BT 0 0 0 rg /F1 9 Tf 1 0 0 1 58 70.69999999999939 Tm (4. Verify recovery using application SLOs and alert recovery; preserve timeline,) Tj ET
-BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
+BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (19) Tj ET
 endstream
 endobj
@@ -1275,7 +1275,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 42 0 R >>
 endobj
 44 0 obj
-<< /Length 6942 >>
+<< /Length 6961 >>
 stream
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 740 Tm (evidence, and follow-up actions.) Tj ET
 BT 0.13 0.30 0.45 rg /F2 10.5 Tf 1 0 0 1 52 722.9 Tm (10.2 Suspected data loss, corruption, or regional outage) Tj ET
@@ -1330,7 +1330,7 @@ BT 0 0 0 rg /F1 9 Tf 1 0 0 1 58 113.79999999999944 Tm (6. On production, verify 
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 102.79999999999944 Tm (the required restore point, run the approved migration, validate application) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 90.69999999999945 Tm (health and data invariants with the owner, and record timing/evidence.) Tj ET
 BT 0 0 0 rg /F1 9 Tf 1 0 0 1 58 78.59999999999945 Tm (7. If validation fails, stop writes/cutover as agreed and follow the approved) Tj ET
-BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
+BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (20) Tj ET
 endstream
 endobj
@@ -1338,7 +1338,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 44 0 R >>
 endobj
 46 0 obj
-<< /Length 2111 >>
+<< /Length 2130 >>
 stream
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 740 Tm (restore or forward-fix decision. Do not assume a schema rollback reverses) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 727.9 Tm (data changes, and do not run destructive rollback SQL without owner approval.) Tj ET
@@ -1355,7 +1355,7 @@ BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 591.4999999999998 Tm (protection. SRE owns ale
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 577.3999999999997 Tm (Review this runbook after Azure service/provider changes, material architecture) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 565.2999999999997 Tm (or compliance changes, every recovery exercise, and at least annually. Verify) Tj ET
 BT 0 0 0 rg /F1 9.1 Tf 1 0 0 1 52 553.1999999999997 Tm (the current Microsoft provider/API guidance before production upgrades.) Tj ET
-BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET
+BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 52 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET
 BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (21) Tj ET
 endstream
 endobj
@@ -1371,49 +1371,49 @@ xref
 0000000358 00000 n 
 0000000460 00000 n 
 0000000555 00000 n 
-0000001365 00000 n 
-0000001511 00000 n 
-0000007002 00000 n 
-0000007148 00000 n 
-0000014105 00000 n 
-0000014253 00000 n 
-0000023319 00000 n 
-0000023467 00000 n 
-0000032054 00000 n 
-0000032202 00000 n 
-0000039888 00000 n 
-0000040036 00000 n 
-0000047197 00000 n 
-0000047345 00000 n 
-0000055253 00000 n 
-0000055401 00000 n 
-0000063395 00000 n 
-0000063543 00000 n 
-0000070346 00000 n 
-0000070494 00000 n 
-0000079706 00000 n 
-0000079854 00000 n 
-0000088033 00000 n 
-0000088181 00000 n 
-0000095061 00000 n 
-0000095209 00000 n 
-0000103484 00000 n 
-0000103632 00000 n 
-0000111129 00000 n 
-0000111277 00000 n 
-0000118262 00000 n 
-0000118410 00000 n 
-0000125484 00000 n 
-0000125632 00000 n 
-0000132674 00000 n 
-0000132822 00000 n 
-0000139970 00000 n 
-0000140118 00000 n 
-0000147113 00000 n 
-0000147261 00000 n 
-0000149425 00000 n 
+0000001374 00000 n 
+0000001520 00000 n 
+0000007030 00000 n 
+0000007176 00000 n 
+0000014152 00000 n 
+0000014300 00000 n 
+0000023385 00000 n 
+0000023533 00000 n 
+0000032139 00000 n 
+0000032287 00000 n 
+0000039992 00000 n 
+0000040140 00000 n 
+0000047320 00000 n 
+0000047468 00000 n 
+0000055395 00000 n 
+0000055543 00000 n 
+0000063556 00000 n 
+0000063704 00000 n 
+0000070526 00000 n 
+0000070674 00000 n 
+0000079905 00000 n 
+0000080053 00000 n 
+0000088251 00000 n 
+0000088399 00000 n 
+0000095298 00000 n 
+0000095446 00000 n 
+0000103740 00000 n 
+0000103888 00000 n 
+0000111404 00000 n 
+0000111552 00000 n 
+0000118556 00000 n 
+0000118704 00000 n 
+0000125797 00000 n 
+0000125945 00000 n 
+0000133006 00000 n 
+0000133154 00000 n 
+0000140321 00000 n 
+0000140469 00000 n 
+0000147483 00000 n 
+0000147631 00000 n 
+0000149814 00000 n 
 trailer
 << /Size 48 /Root 1 0 R >>
 startxref
-149573
+149962
 %%EOF

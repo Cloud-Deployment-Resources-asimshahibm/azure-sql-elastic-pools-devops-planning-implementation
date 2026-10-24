@@ -1,4 +1,4 @@
-name: Validate runbook and monitoring baseline
+name: Validate Azure SQL planning package
 
 on:
   pull_request:

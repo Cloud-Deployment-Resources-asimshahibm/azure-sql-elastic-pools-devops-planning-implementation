@@ -219,14 +219,14 @@ const markdown = sourcePaths
   .join("\n\n---\n\n");
 pages.push([
   "0.07 0.22 0.39 rg 0 0 612 792 re f",
-  "BT 1 1 1 rg /F2 26 Tf 1 0 0 1 64 625 Tm (Azure SQL Elastic Pool) Tj ET",
-  "BT 1 1 1 rg /F2 26 Tf 1 0 0 1 64 590 Tm (Production Planning + Deployment) Tj ET",
+  "BT 1 1 1 rg /F2 25 Tf 1 0 0 1 64 625 Tm (Azure SQL Elastic Pools) Tj ET",
+  "BT 1 1 1 rg /F2 22 Tf 1 0 0 1 64 590 Tm (DevOps Planning & Implementation) Tj ET",
   "BT 0.83 0.91 0.97 rg /F1 13 Tf 1 0 0 1 66 540 Tm (Readiness plan, environment worksheet, Terraform,) Tj ET",
   "BT 0.83 0.91 0.97 rg /F1 13 Tf 1 0 0 1 66 519 Tm (Azure DevOps, operations, and recovery) Tj ET",
   "0.22 0.48 0.67 rg 64 460 484 2 re f",
   "BT 1 1 1 rg /F2 12 Tf 1 0 0 1 66 425 Tm (Reference scale: 10+ elastic pools / 100+ databases) Tj ET",
   "BT 0.83 0.91 0.97 rg /F1 10 Tf 1 0 0 1 66 390 Tm (Planning template only - no Azure subscription or deployment included.) Tj ET",
-  "BT 0.83 0.91 0.97 rg /F1 9 Tf 1 0 0 1 66 62 Tm (Project: azure-sql-elastic-pool-production-runbook) Tj ET"
+  "BT 0.83 0.91 0.97 rg /F1 9 Tf 1 0 0 1 66 62 Tm (Azure SQL Elastic Pools - DevOps Planning & Implementation) Tj ET"
 ]);
 drawArchitecture();
 renderMarkdown(markdown);
@@ -248,7 +248,7 @@ for (const [index, pageContent] of pages.entries()) {
   const isCover = index === 0;
   const commands = [...pageContent];
   if (!isCover) {
-    commands.push(`BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 ${margin} 30 Tm (Azure SQL Elastic Pool Operations Runbook) Tj ET`);
+    commands.push(`BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 ${margin} 30 Tm (Azure SQL Elastic Pools - DevOps Planning and Implementation) Tj ET`);
     commands.push(`BT 0.35 0.35 0.35 rg /F1 8 Tf 1 0 0 1 540 30 Tm (${index + 1}) Tj ET`);
   }
   const stream = commands.join("\n");
